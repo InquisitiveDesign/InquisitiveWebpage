@@ -1,0 +1,105 @@
+{% extends 'mechbase.html' %}
+{% block title %}
+  Beam Design Calculator
+{% endblock %}
+{% block content %}
+<style>
+  #table {
+    padding-right: 100px;
+  }
+</style>
+<h1>Simply Supported Beam Design</h1>
+<br>
+<form method="POST" action="{{ url_for('beamd_cal') }}" style = 'color:white'>
+  {{form.csrf_token}}
+  {{form.beamlength.label}}
+  {{form.beamlength}}
+  <br>
+  {{form.supportnum.label}}
+  {{form.supportnum}}
+  <br>
+  {{form.loadnum.label}}
+  {{form.loadnum}}
+  <br>
+  {{form.beamdata}}
+  <br>
+</form>
+<br>
+<form method="POST" action="{{ url_for('beamd_supp') }}" style = 'color:white'>
+  {{form.csrf_token}}
+  <table class="table table-hover table-dark" style= 'width:800px'>
+    <tr>
+      <!-- Your Columns HERE -->
+      <th>Serial No</th>
+      <th>Support location from left end (in mm)</th>
+      <th>Type of Support</th>
+      <th>Direction of the Support</th>
+    </tr>
+    {% for x in range(0,NS) %}
+    <tr>
+      <td>
+        <h4>{{x+1}}.</h4>
+      </td>
+      <td>
+        {{form1.supportloc}}
+      </td>
+      <td>
+        {{form1.supporttype}}
+      </td>
+      <td>
+        {{form1.supportdirec}}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  <br>
+  <table class="table table-hover table-dark" style= 'width:900px'>
+    <tr>
+      <!-- Your Columns HERE -->
+      <th>Serial No</th>
+      <th>Load location from left end (in mm)</th>
+      <th>Type of Load</th>
+      <th>Direction of Load</th>
+      <th>Load value (in kN)</th>
+    </tr>
+    {% for y in range(0,NL) %}
+    <tr>
+      <td>
+        <h4>{{y+1}}.</h4>
+      </td>
+      <td>
+        {{form1.loadloc}}
+      </td>
+      <td>
+        {{form1.loadtype}}
+      </td>
+      <td>
+        {{form1.loaddirec}}
+      </td>
+      <td>
+        {{form1.loadvalue}}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  <br>
+  {{form1.LoadSuppdata}}
+</form>
+<br>
+{{}}
+<br>
+<h3>Beam data submitted</h3>
+<ul>
+  {% for i in info %}
+    <li>beamlength={{i.beamlength}}, Number of Support={{i.supportnum}}, Number of load={{i.loadnum}}</li>
+  {% endfor %}
+</ul>
+<br>
+<br>
+<h3>load/sup data submitted</h3>
+<ul>
+  {% for i in dt %}
+    <li>supportloc={{i.supportloc}}, supporttype={{i.supporttype}}, supportdirec={{i.supportdirec}}, loadloc={{i.loadloc}}, loadtype={{i.loadtype}}, loaddirec={{i.loaddirec}}, loadvalue={{i.loadvalue}}</li>
+  {% endfor %}
+</ul>
+{% endblock %}
