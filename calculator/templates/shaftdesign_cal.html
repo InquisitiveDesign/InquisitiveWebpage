@@ -1,0 +1,53 @@
+{% extends 'mechbase.html' %}
+{% block title %}
+  Shaft Design Calculator
+{% endblock %}
+{% block content %}
+<h1>Shaft Design in Combined Bending & Torsional Moment</h1>
+<h2>ON STRENGTH BASIS</h2>
+<br>
+<form method="POST" action="{{ url_for('shaftd_cal') }}" style = 'color:white'>
+  <label for="bendingmom">Enter value of bending moment (in N-mm):</label>
+  <input type='text' id='bendingmom' name='bendingmom'>
+  <br>
+  <label for="torsionalmom">Enter value of torsional moment (in N-mm):</label>
+  <input type='text' id='torsionalmom' name='torsionalmom'>
+  <br>
+  <label for="yield">Enter the material's yield  value (in N/mm^2):</label>
+  <input type='text' id='yield' name='yield'>
+  <br>
+  <label for="fos">Enter desired factor of safety:</label>
+  <input type='text' id='fos' name='fos'>
+  <br>
+  <label for="loadtype">Type G for Gradual loading, S for Minor shock load, H for heavy shock load:</label>
+  <input type='text' id='loadtype' name='loadtype'>
+  <br>
+  <label for="theory">TYPE S Max shear stress theorym or D for distortion energy theory:</label>
+  <input type='text' id='theory' name='theory'>
+  <br>
+  <label for="designbase">Type T for equivalent torsion based or B for equivalent bending based design:</label>
+  <input type='text' id='designbase' name='designbase'>
+  <br>
+  <label for="diaratio">Enter ratio of inner to outer diameter:</label>
+  <input type='text' id='diaratio' name='diaratio'>
+  <br>
+  <input type='submit' value='Submit'>
+</form>
+<br><br>
+<h4>Recommandations</h4>
+<br>
+<table class="table table-hover table-dark">
+  <thead>
+    <tr>
+      <!-- Your Columns HERE -->
+      <th>Outer Diameter (in mm)</th>
+      <th>Inner Diameter (in mm)</th>
+    </tr>
+    <tr>
+      {% for item in outcome %}
+        <th>{{outcome[loop.index0]}}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+</table>
+{% endblock %}

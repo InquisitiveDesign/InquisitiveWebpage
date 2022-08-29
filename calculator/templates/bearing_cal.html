@@ -1,0 +1,40 @@
+{% extends 'mechbase.html' %}
+{% block title %}
+  Bearing Calculator
+{% endblock %}
+{% block content %}
+<h1>Bearing description</h1>
+<br>
+<form method="POST" action="{{ url_for('bear_cal') }}" style = 'color:white'>
+  <label for="shaftdia">Enter the value of shaft dia.</label>
+  <input type='text' id='shaftdia' name='shaftdia'>
+  <br>
+  <label for="dynamicloadcap">Enter the value of Dynamic load capacity.</label>
+  <input type='text' id='dynamicloadcap' name='dynamicloadcap'>
+  <br>
+  <input type='submit' value='Submit'>
+</form>
+<br><br><br><br>
+<h4>Bearing Recommanded</h4>
+<br>
+<table class="table table-hover table-dark">
+  <thead>
+    <tr>
+      <!-- Your Columns HERE -->
+      <th>Bearing Desigination</th>
+      <th>Bore (in mm)</th>
+      <th>OD (in mm)</th>
+      <th>Width (in mm)</th>
+      <th>Cd</th>
+      <th>Co</th>
+      <th>Reference Speed</th>
+      <th>Limit Speed</th>
+    </tr>
+    <tr>
+      {% for item in output %}
+        <th>{{output[loop.index0]}}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+</table>
+{% endblock %}

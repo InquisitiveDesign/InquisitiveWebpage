@@ -1,0 +1,44 @@
+{% extends 'mechbase.html' %}
+{% block title %}
+  Shaft Design Calculator
+{% endblock %}
+{% block content %}
+<h1>Shaft Design in Combined Bending & Torsional Moment</h1>
+<h2>ON RIGIDITY BASIS</h2>
+<br>
+<form method="POST" action="{{ url_for('shaftrigid_cal') }}" style = 'color:white'>
+  <label for="thetamax">Enter the Max Permissible angle of twist (in deg):</label>
+  <input type='text' id='thetamax' name='thetamax'>
+  <br>
+  <label for="rigidity">Enter Material's Modulus of rigidity (in N/mm^2):</label>
+  <input type='text' id='rigidity' name='rigidity'>
+  <br>
+  <label for="torsionmom">Enter value of torsional moment (in N-mm):</label>
+  <input type='text' id='torsionmom' name='torsionmom'>
+  <br>
+  <label for="shaftlength">Enter the length of the shaft (in mm):</label>
+  <input type='text' id='shaftlength' name='shaftlength'>
+  <br>
+  <label for="diar">Enter ratio of inner to outer diameter:</label>
+  <input type='text' id='diar' name='diar'>
+  <br>
+  <input type='submit' value='Submit'>
+</form>
+<br><br>
+<h4>Recommandations</h4>
+<br>
+<table class="table table-hover table-dark">
+  <thead>
+    <tr>
+      <!-- Your Columns HERE -->
+      <th>Outer Diameter (in mm)</th>
+      <th>Inner Diameter (in mm)</th>
+    </tr>
+    <tr>
+      {% for item in rig_outcome %}
+        <th>{{rig_outcome[loop.index0]}}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+</table>
+{% endblock %}

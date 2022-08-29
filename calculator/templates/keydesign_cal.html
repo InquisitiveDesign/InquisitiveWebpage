@@ -1,0 +1,48 @@
+{% extends 'mechbase.html' %}
+{% block title %}
+  Key Design Calculator
+{% endblock %}
+{% block content %}
+<h1>Power & Torque Transfer Description</h1>
+<br>
+<form method="POST" action="{{ url_for('keyd_cal') }}" style = 'color:white'>
+  <label for="power">Enter the value of power transmitted (in kW):</label>
+  <input type='text' id='power' name='power'>
+  <br>
+  <label for="nspeed">Enter the shaft's angular speed in RPM:</label>
+  <input type='text' id='nspeed' name='nspeed'>
+  <br>
+  <label for="yield">Enter the material's yield  value (in N/mm^2):</label>
+  <input type='text' id='yield' name='yield'>
+  <br>
+  <label for="fos">Enter desired factor of safety:</label>
+  <input type='text' id='fos' name='fos'>
+  <br>
+  <label for="sdia">Enter diameter of the shaft (in mm):</label>
+  <input type='text' id='sdia' name='sdia'>
+  <br>
+  <label for="theory">TYPE S Max shear stress theory or TYPE D for distortion energy theory:</label>
+  <input type='text' id='theory' name='theory'>
+  <br>
+  <input type='submit' value='Submit'>
+</form>
+<br><br><br><br>
+<h4>Key's Recommanded Dimensions</h4>
+<br>
+<table class="table table-hover table-dark">
+  <thead>
+    <tr>
+      <!-- Your Columns HERE -->
+      <th>Length (in mm)</th>
+      <th>Breadth (in mm)</th>
+      <th>Height (in mm)</th>
+    </tr>
+    <tr>
+      {% for item in R %}
+        <th>{{R[loop.index0]}}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+</table>
+
+{% endblock %}
