@@ -28,6 +28,7 @@ def shaft_combined(BM,TM,S,F,LT,Th,db,dr):
     elif design_theory.upper() == "D":
         sh_yi = 0.577*yi_st
     else:
+        sh_yi = -1.0
         print("invalid input")
 
     maxp_sh_stress = (sh_yi/fos)
