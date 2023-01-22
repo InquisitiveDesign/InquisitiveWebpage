@@ -1,9 +1,9 @@
 {% extends 'mechbase.html' %}
 {% block title %}
-  Bearing Calculator
+  Bearing Selector
 {% endblock %}
 {% block content %}
-<h1>Bearing description</h1>
+<h1>Bearing Description</h1>
 <br>
 <form method="POST" action="{{ url_for('bear_cal') }}">
   <label for="shaftdia">Enter the value of shaft dia.</label>
@@ -14,7 +14,7 @@
   <br>
   <input type='submit' value='Submit'>
 </form>
-<br><br><br><br>
+<br><br>
 <h4>Bearing Recommanded</h4>
 <br>
 <table class="table table-hover table-dark">
