@@ -1,9 +1,9 @@
 {% extends 'mechbase.html' %}
 {% block title %}
-  Key Design Calculator
+  Key Design
 {% endblock %}
 {% block content %}
-<h1>Power & Torque Transfer Description</h1>
+<h2>Input parameters as per your application</h2>
 <br>
 <form method="POST" action="{{ url_for('keyd_cal') }}">
   <label for="power">Enter the value of power transmitted (in kW):</label>
