@@ -1,25 +1,79 @@
 {% extends 'mechbase.html' %}
 {% block title %}
-  Bearing Selector
+  Ball Bearing Selector
 {% endblock %}
 {% block content %}
-<h1>Bearing Description</h1>
+<h4>Input parameters as per your application</h4>
 <br>
+
 <form method="POST" action="{{ url_for('bear_cal') }}">
-  <label for="shaftdia">Enter the value of shaft dia.</label>
-  <input type='text' id='shaftdia' name='shaftdia'>
-  <br>
-  <label for="dynamicloadcap">Enter the value of Dynamic load capacity.</label>
-  <input type='text' id='dynamicloadcap' name='dynamicloadcap'>
-  <br>
-  <input type='submit' value='Submit'>
+  <div class="mb-3 row">
+    <div class="col-sm-6">
+      <div class="mb-3 row">
+        <label for="shaftdia" class="col-sm-6 col-form-label">Shaft Bore Diameter:</label>
+        <div class="col-sm-3">
+          <input type='number' step="0.01" class="form-control form-control-sm" id='shaftdia' name='shaftdia' placeholder="in mm">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="ang_velo" class="col-sm-6 col-form-label">Operational Angular Velocity:</label>
+        <div class="col-sm-3">
+          <input type='number' step="0.01" class="form-control form-control-sm" id='ang_velo' name='ang_velo' placeholder="in RPM">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="vfc" class="col-sm-6 col-form-label">Radial Load - Vertical Component:</label>
+        <div class="col-sm-3">
+          <input type='number' step="0.01" class="form-control form-control-sm" id='vfc' name='vfc' placeholder="in kN">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="hfc" class="col-sm-6 col-form-label">Radial Load - Horizontal Component:</label>
+        <div class="col-sm-3">
+          <input type='number' step="0.01" class="form-control form-control-sm" id='hfc' name='hfc' placeholder="in kN">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="mb-3 row">
+        <label for="afc" class="col-sm-6 col-form-label">Axial Load:</label>
+        <div class="col-sm-3">
+          <input type='number' step="0.01" class="form-control form-control-sm" id='afc' name='afc' placeholder="in kN">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="rfact" class="col-sm-6 col-form-label">Rotating Race:</label>
+        <div class="col-sm-3">
+          <select id='rfact' name='rfact' class="form-control form-control-sm">
+            <option value="innerrace">Inner Race</option>
+            <option value="outerrace">Outer Race</option>
+          </select>
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="hrperday" class="col-sm-6 col-form-label">Functional Hours/Day:</label>
+        <div class="col-sm-3">
+          <input type='number' step="0.1" class="form-control form-control-sm" id='hrperday' name='hrperday' placeholder="in hours">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="exp_years" class="col-sm-6 col-form-label">Expected Life:</label>
+        <div class="col-sm-3">
+          <input type='number' step="0.1" class="form-control form-control-sm" id='exp_years' name='exp_years' placeholder="in years">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button type="submit" value='Submit' class="btn btn-outline-dark">Submit</button>
+  </div>
 </form>
 <br><br>
-<h4>Bearing Recommanded</h4>
-<br>
+<h4>Ball Bearing Recommanded</h4>
+
 <table class="table table-hover table-dark">
   <thead>
-    <tr>
+    <tr >
       <!-- Your Columns HERE -->
       <th>Bearing Desigination</th>
       <th>Bore (in mm)</th>
