@@ -3,31 +3,56 @@
   Beam Design
 {% endblock %}
 {% block content %}
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
   #table {
     padding-right: 100px;
   }
 </style>
-<h1>Simply Supported Beam Design</h1>
+</head>
+<h2>Simply Supported Beam Design</h2>
 <br>
+<!--<span>Beam Length (mm):</span>
+<input id="lengthValue">
+<span>Support</span>
+<input onkeyup="support();" id="supportValue">
+<span>Load</span>
+<input onkeyup="load();" id="loadValue">-->
+
 <form method="POST" action="{{ url_for('beamd_cal') }}">
-  {{form.csrf_token}}
-  {{form.beamlength.label}}
-  {{form.beamlength}}
-  <br>
-  {{form.supportnum.label}}
-  {{form.supportnum}}
-  <br>
-  {{form.loadnum.label}}
-  {{form.loadnum}}
-  <br>
-  {{form.beamdata}}
-  <br>
+  <div class="mb-3 row">
+    <div class="col-sm-6">
+      <div class="mb-3 row">
+        <label for="beamlength" class="col-sm-3 col-form-label">Beam Length:</label>
+        <div class="col-sm-3">
+          <input type='number' step="0.1" class="form-control form-control-sm" id='beamlength' name='beamlength' placeholder="in mm">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3 row">  
+    <div class="col-sm-6">
+      <div class="mb-3 row">
+        <label for="supportnum" class="col-sm-3 col-form-label">Support Number:</label>
+        <div class="col-sm-3">
+          <input type='number' step="1" min="1" max="2" class="form-control form-control-sm" id='supportnum' name='supportnum' onkeyup="support();">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="mb-3 row">
+        <label for="loadnum" class="col-sm-3 col-form-label">Load Number:</label>
+        <div class="col-sm-3">
+          <input type='number' step="1" min="0" max="6" class="form-control form-control-sm" id='loadnum' name='loadnum' onkeyup="load();">
+        </div>
+      </div>
+    </div>
+  </div>
 </form>
-<br>
-<form method="POST" action="{{ url_for('beamd_supp') }}" style = 'color:white'>
-  {{form.csrf_token}}
-  <table class="table table-hover table-dark" style= 'width:800px'>
+
+<form method="POST" action="{{ url_for('beamsolu_cal') }}">
+  <table id="supportTable" class="table table-hover table-dark" style= 'width:900px'>
     <tr>
       <!-- Your Columns HERE -->
       <th>Serial No</th>
@@ -35,25 +60,16 @@
       <th>Type of Support</th>
       <th>Direction of the Support</th>
     </tr>
-    {% for x in range(0,NS) %}
-    <tr>
-      <td>
-        <h4>{{x+1}}.</h4>
-      </td>
-      <td>
-        {{form1.supportloc}}
-      </td>
-      <td>
-        {{form1.supporttype}}
-      </td>
-      <td>
-        {{form1.supportdirec}}
-      </td>
+    <tr id = "t1">
+      <td>Support Details</td>
+      <td><input class = "supportloc" name="supportloc" type="text"></td>
+      <td><input class = "supporttype" name="supporttype" type="text"></td>
+      <td><input class = "supportdirec" name="supportdirec" type="text"></td>
     </tr>
-    {% endfor %}
   </table>
-  <br>
-  <table class="table table-hover table-dark" style= 'width:900px'>
+
+  <br><br><br>
+  <table id="loadTable" class="table table-hover table-dark" style= 'width:1100px'>
     <tr>
       <!-- Your Columns HERE -->
       <th>Serial No</th>
@@ -62,43 +78,57 @@
       <th>Direction of Load</th>
       <th>Load value (in kN)</th>
     </tr>
-    {% for y in range(0,NL) %}
-    <tr>
-      <td>
-        <h4>{{y+1}}.</h4>
-      </td>
-      <td>
-        {{form1.loadloc}}
-      </td>
-      <td>
-        {{form1.loadtype}}
-      </td>
-      <td>
-        {{form1.loaddirec}}
-      </td>
-      <td>
-        {{form1.loadvalue}}
-      </td>
+    <tr id = "t2">
+      <td>Load Details</td>
+      <td><input class = "loadloc" name="loadloc" type="text"></td>
+      <td><input class = "loadtype" name="loadtype" type="text"></td>
+      <td><input class = "loaddirec" name="loaddirec" type="text"></td>
+      <td><input class = "loadvalue" name="loadvalue" type="text"></td>
     </tr>
-    {% endfor %}
   </table>
   <br>
-  {{form1.LoadSuppdata}}
+  <button id = 'submit' type="submit" >SUBMIT</button>
 </form>
 <br>
-<br>
-<h3>Beam data submitted</h3>
-<ul>
-  {% for i in info %}
-    <li>beamlength={{i.beamlength}}, Number of Support={{i.supportnum}}, Number of load={{i.loadnum}}</li>
-  {% endfor %}
-</ul>
-<br>
-<br>
-<h3>load/sup data submitted</h3>
-<ul>
-  {% for i in dt %}
-    <li>supportloc={{i.supportloc}}, supporttype={{i.supporttype}}, supportdirec={{i.supportdirec}}, loadloc={{i.loadloc}}, loadtype={{i.loadtype}}, loaddirec={{i.loaddirec}}, loadvalue={{i.loadvalue}}</li>
-  {% endfor %}
-</ul>
+<script>
+  function support() {
+    var numSupportRows = $('#supportnum').val();
+    for(var i=1;i<numSupportRows;i++){
+      $('#supportTable').append('<tr><td>Support Details</td><td><input class = "supportloc" name="supportloc" type="text"></td><td><input class = "supporttype" name="supporttype" type="text"></td><td><input class = "supportdirec" name="supportdirec" type="text"></td></tr>');
+    }
+  }
+  function load() {
+    var numLoadRows = $('#loadnum').val();
+    for(var i=1;i<numLoadRows;i++){
+      $('#loadTable').append('<tr><td>Load Details</td><td><input class = "loadloc" name="loadloc" type="text"></td><td><input class = "loadtype" name="loadtype" type="text"></td><td><input class = "loaddirec" name="loaddirec" type="text"></td><td><input class = "loadvalue" name="loadvalue" type="text"></td></tr>');
+    }
+  }
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+  
+    $("#submit").on('click',function(){
+    
+      var arrData=[];
+      // loop over each table row (tr)
+      $("#supportTable tr").each(function(){
+        var currentRow=$(this);
+        var col1_value=currentRow.find("td:eq(0)").text();
+        var col2_value=currentRow.find("td:eq(1)").text();
+        var col3_value=currentRow.find("td:eq(2)").text();
+    
+        var obj={};
+        obj.col1=col1_value;
+        obj.col2=col2_value;
+        obj.col3=col3_value;
+    
+        arrData.push(obj);
+      });
+      alert(arrData);
+      console.log(arrData);
+    });
+  });
+</script>
+
 {% endblock %}
