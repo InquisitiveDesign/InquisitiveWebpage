@@ -3,29 +3,51 @@
   Shaft Design_Rigidity
 {% endblock %}
 {% block content %}
-<h2>Input parameters as per your application</h2>
+<h4>Input parameters as per your application</h4>
 <br>
 <form method="POST" action="{{ url_for('shaftrigid_cal') }}">
-  <label for="thetamax">Enter the Max Permissible angle of twist (in deg):</label>
-  <input type='text' id='thetamax' name='thetamax'>
-  <br>
-  <label for="rigidity">Enter Material's Modulus of rigidity (in N/mm^2):</label>
-  <input type='text' id='rigidity' name='rigidity'>
-  <br>
-  <label for="torsionmom">Enter value of torsional moment (in N-mm):</label>
-  <input type='text' id='torsionmom' name='torsionmom'>
-  <br>
-  <label for="shaftlength">Enter the length of the shaft (in mm):</label>
-  <input type='text' id='shaftlength' name='shaftlength'>
-  <br>
-  <label for="diar">Enter ratio of inner to outer diameter:</label>
-  <input type='text' id='diar' name='diar'>
-  <br>
-  <input type='submit' value='Submit'>
+  <div class="mb-3 row">
+    <div class="col-sm-6">
+      <div class="mb-3 row">
+        <label for="shaftlength" class="col-sm-6 col-form-label">Shaft Length:</label>
+        <div class="col-sm-3">
+          <input type='number' step="0.01" class="form-control form-control-sm" id='shaftlength' name='shaftlength' placeholder="in mm">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="thetamax" class="col-sm-6 col-form-label">Permissible Twisting Angle:</label>
+        <div class="col-sm-3">
+          <input type='number' step="0.001" class="form-control form-control-sm" id='thetamax' name='thetamax' placeholder="in deg">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="rigidity" class="col-sm-6 col-form-label">Material Rigidity Modulus:</label>
+        <div class="col-sm-3">
+          <input type='number' step="0.01" class="form-control form-control-sm" id='rigidity' name='rigidity' placeholder="in MPa">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="mb-3 row">
+        <label for="torsionmom" class="col-sm-6 col-form-label">Max Torsional Moment:</label>
+        <div class="col-sm-3">
+          <input type='number' step="0.01" class="form-control form-control-sm" id='torsionmom' name='torsionmom' placeholder="in N/mm">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="diar" class="col-sm-6 col-form-label">Inner/Outer Diameter Ratio:</label>
+        <div class="col-sm-3">
+          <input type='number' step="0.01" max="1" min="0" class="form-control form-control-sm" id='diar' name='diar' placeholder="Inner/Outer">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button type="submit" value='Submit' class="btn btn-outline-dark">Submit</button>
+  </div>
 </form>
 <br><br>
-<h4>Recommandations</h4>
-<br>
+<h4>Shaft Recommanded Dimension</h4>
 <table class="table table-hover table-dark">
   <thead>
     <tr>
