@@ -22,14 +22,14 @@ def key_d(P,N,S,F,D,Th):
     max_perss = float(sh_st/fos)   #max permissible shear stress
     omega = (2*(math.pi)*Nspeed/60)   #angular speed in rad/sec
     Mt = (power_in*(10**6)/(omega))   #Torque to be transmitted by the shaft to hub via key in N-mm
-    B = float(shaftDia/4)          #Width and height (in mm) as per the standard industrial practice i.e 1/4th of shaft dia for square key
-    H = float(shaftDia/4)
+    B = round(float(shaftDia/4),2)          #Width and height (in mm) as per the standard industrial practice i.e 1/4th of shaft dia for square key
+    H = round(float(shaftDia/4),2)
     keylen_ssbased = float(2*Mt/(max_perss*B*H))
     keylen_csbased = float(4*Mt/(max_percs*B*H))
     if keylen_ssbased >= keylen_csbased:
-        L = keylen_ssbased
+        L = round(keylen_ssbased,2)
 
     elif keylen_ssbased < keylen_csbased:
-        L = keylen_csbased
+        L = round(keylen_csbased,2)
 
     return [L,B,H]
