@@ -40,18 +40,18 @@ def shaft_combined(BM,TM,S,F,LT,Th,db,dr):
     elif design_basedon.upper() == "B":
         Meq = (kb*Mb) + (math.sqrt(((kb*Mb)**2)+((kt*Mt)**2)))
 
-    else:
-        print("invalid input")
+    #else:
+        #print("invalid input")
 
     C = float(dr)
 
     if C == 0:
-        shaft_dia = (16*Meq/((math.pi)*maxp_sh_stress))**(1./3.)
+        shaft_dia = round((16*Meq/((math.pi)*maxp_sh_stress))**(1./3.),2)
         return [shaft_dia, 0]
 
     elif C > 0 and C < 1:
-        Outer_shaft_dia = (16*Meq/((math.pi)*maxp_sh_stress*(1-(C**4))))**(1./3.)
-        Inner_shaft_dia = Outer_shaft_dia*C
+        Outer_shaft_dia = round((16*Meq/((math.pi)*maxp_sh_stress*(1-(C**4))))**(1./3.),2)
+        Inner_shaft_dia = round(Outer_shaft_dia*C,2)
         return [Outer_shaft_dia, Inner_shaft_dia]
 
 def shaft_from_rigiditymodulus(Theta,G,TM,L,Rdia):
@@ -64,14 +64,14 @@ def shaft_from_rigiditymodulus(Theta,G,TM,L,Rdia):
 
 
     if C == 0:
-        shaft_dia = ((584*Mt*Len)/(G*theta_max))**(1./4.)
+        shaft_dia = round(((584*Mt*Len)/(G*theta_max))**(1./4.),2)
         return [shaft_dia, 0]
 
     elif C > 0 and C < 1:
-        Outer_shaft_dia = ((584*Mt*Len)/(G*theta_max*(1-(C**4))))**(1./4.)
-        Inner_shaft_dia = Outer_shaft_dia*C
+        Outer_shaft_dia = round(((584*Mt*Len)/(G*theta_max*(1-(C**4))))**(1./4.),2)
+        Inner_shaft_dia = round(Outer_shaft_dia*C,2)
         return [Outer_shaft_dia, Inner_shaft_dia]
 
     else:
-        shaft_dia = ((584*Mt*Len)/(G*theta_max))**(1./4.)
+        shaft_dia = round(((584*Mt*Len)/(G*theta_max))**(1./4.),2)
         return [shaft_dia, 0]
