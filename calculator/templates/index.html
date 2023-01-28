@@ -3,70 +3,190 @@
   Home Page
 {% endblock %}
 {% block content %}
-  <br>
-  <h5>Welcome to the platform, Learn and Design your Machine!</h5>
+  <style>
+    #more {display: none;}
+    #more2 {display: none;}
+    #more3 {display: none;}
+  </style>
+  <script>
+    function readmore2() {
+      var dots2 = document.getElementById("dots2");
+      var moreText2 = document.getElementById("more2");
+      var btnText2 = document.getElementById("myBtn2");
+
+      if (dots2.style.display === "none") {
+        dots2.style.display = "inline";
+        btnText2.innerHTML = "Read more";
+        moreText2.style.display = "none";
+      } 
+      else {
+        dots2.style.display = "none";
+        btnText2.innerHTML = "Read less";
+        moreText2.style.display = "inline";
+      }
+    }
+
+    function readmore() {
+      var dots = document.getElementById("dots");
+      var moreText = document.getElementById("more");
+      var btnText = document.getElementById("myBtn");
+
+      if (dots.style.display === "none") {
+        dots.style.display = "inline";
+        btnText.innerHTML = "Read more";
+        moreText.style.display = "none";
+      } 
+      else {
+        dots.style.display = "none";
+        btnText.innerHTML = "Read less";
+        moreText.style.display = "inline";
+      }
+    }
+
+    function readmore3() {
+      var dots2 = document.getElementById("dots3");
+      var moreText2 = document.getElementById("more3");
+      var btnText2 = document.getElementById("myBtn3");
+
+      if (dots2.style.display === "none") {
+        dots2.style.display = "inline";
+        btnText2.innerHTML = "Read more";
+        moreText2.style.display = "none";
+      } 
+      else {
+        dots2.style.display = "none";
+        btnText2.innerHTML = "Read less";
+        moreText2.style.display = "inline";
+      }
+    }
+  </script>
+  <div class="mb-3 mt-4">
+    <h5>Welcome to the platform, Learn and Design your Machine!</h5>
+  </div>
+  <div class="pb-4 p-3 mb-2 bg-body-secondary">
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+      <div class="col-sm-6">
+        <div class="card h-50 mb-3">
+          <div class="card-body">
+            <h5 class="card-title">Select your Rolling Contact Bearing specific to your application</h5>
+            <p class="card-text">Forget about the iterative processes that consumes much of the time while selecting a bearing.
+              Just tell us the initial requirements and we will do the rest.
+            </p>
+            <a class="btn btn-dark" href="{{ url_for('bear_cal')}}" role="button">Select your Ball Bearing now!</a>
+          </div>
+        </div>
+        <div class="card h-50 mb-3">
+          <div class="card-body">
+            <h5 class="card-title">Design a Application specific Shaft in seconds!</h5>
+            <p class="card-text">Design a Shaft under Bending and Torsional loads using different Failure theories, 
+              equivalent stresses & load types i.e., gradual or shock loading. 
+              Fill in the parameters and we will provide you with required dimensions.
+            </p>
+            <a class="btn btn-dark" href="{{ url_for('shaftd_cal')}}" role="button">Design your Shaft here!</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card h-50 mb-3">
+          <div class="card-body">
+            <h5 class="card-title">Design a Line Shaft with Permissible Twisting!</h5>
+            <p class="card-text">Design a Hollow or Solid Line Shaft which works under explicit rigidity requirements. 
+              Set the Twisting limit and get the required dimensions.
+            </p>
+            <a class="btn btn-dark" href="{{ url_for('shaftrigid_cal')}}" role="button">Define your limits here!</a>
+          </div>
+        </div>
+        <div class="card h-50 mb-3">
+          <div class="card-body">
+            <h5 class="card-title">Design a Key for Power Transmission Application </h5>
+            <p class="card-text">Design a Key that helps transmit the Power between Shafts and 
+              other Rotary components under certain angular speed and Bore Diameter. Set the Parameters and we will provide you with required dimensions.
+            </p>
+            <a class="btn btn-dark" href="{{ url_for('keyd_cal')}}" role="button">Design your Key here!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <br>
   <div class="p-3 mb-2 bg-body-secondary">
+    <div class="mb-1 row">
+      <h4>Design Engineering Blogs</h4>
+      <p>Be Inquisitive and Question everything around you!</p>
+    </div>
     <div class="row row-cols-1 row-cols-md-3 g-4">
       <div class="col">
         <div class="card h-100">
-          <img src="https://drive.google.com/uc?id=14DuygXa44yujk4VgkQFDUhG_6xBPTqtc" class="card-img-top" alt="image of an Airplane">
+          <img src="https://drive.google.com/uc?id=14DuygXa44yujk4VgkQFDUhG_6xBPTqtc" class="card-img-top img-fluid" alt="image of an Airplane">
           <div class="card-body">
             <h5 class="card-title">Why airplanes wait at air strips before take off?</h5>
-            <p class="card-text">Turns out that the wake vortex turbulence from the tip of the wing of the planes creates a swirl effect in the air while taking off. Which can cause an airplane going just after the previous plane can roll due to vortex wind pressure which can result
+            <p class="card-text">
+              Turns out that the wake vortex turbulence from the tip of the wing of the planes creates a swirl effect in the air while taking off. Which can<span id="dots">...</span><span id="more">cause an airplane going just after the previous plane can roll due to vortex wind pressure which can result
               in a huge disaster and loss of life. After a major accidents in history various tests were conduted to estimate the time and the strength of these vortices for which they will remain in the air and
-              can cause an hazardous accidents...</p>
-            <a href="#" class="btn btn-primary">read more</a>
+              can cause an hazardous accidents.</span>
+            </p>
+            <button onclick="readmore()" id="myBtn" class="btn btn-dark">Read more</button>
           </div>
         </div>
       </div>
       <div class="col">
         <div class="card h-100">
-          <img src="https://drive.google.com/uc?id=11wdY5f6E0Y8xktFYYd9AVvxo50GobK6O" class="card-img-top" alt="images of currency note">
+          <img src="https://drive.google.com/uc?id=11wdY5f6E0Y8xktFYYd9AVvxo50GobK6O" class="card-img-top img-fluid" alt="images of currency coins">
           <div class="card-body">
             <h5 class="card-title">Fun facts about Money</h5>
-            <p class="card-text">Inquisitive info...</p>
-            <a href="#" class="btn btn-primary">read more</a>
+            <p class="card-text">
+              Do you know the cost of making a 5 rupee coin? any guesses<span id="dots2">...</span><span id="more2"><br>it's ₹3.69! which is lesser than its value it seems. Similarly
+              the cost of making a Re 1 coin is Rs 1.11 but how?<br>Well Cost depends on money minting processes involved for making a coin.
+              Using modern hydraulic presses the cost of production is highly optimised but again it comes to the machine ideal time that increase the price.</span>
+            </p>
+            <button onclick="readmore2()" id="myBtn2" class="btn btn-dark">Read more</button>
           </div>
         </div>
       </div>
       <div class="col">
         <div class="card h-100">
-          <img src="https://drive.google.com/uc?id=18z1iEiwbTuoGlcFozgDIc41Lkkw7VKub" class="card-img-top" alt="images of black holes">
+          <img src="https://drive.google.com/uc?id=1-d695el1gxID1_YFX3dpC5s6davQ9DjJ" class="card-img-top img-fluid" alt="images of black hole">
           <div class="card-body">
-            <h5 class="card-title">What do you know about black holes?</h5>
-            <p class="card-text">Inquisitive info...</p>
-            <a href="#" class="btn btn-primary">read more</a>
+            <h5 class="card-title">why time slows near a black hole?</h5>
+            <p class="card-text">
+              Time slows down near a black hole due to<span id="dots3">...</span><span id="more3"><br>the extremely strong gravitational field of the black hole.
+              <br>According to the theory of general relativity, this is due to the gravity of the black hole which curves spacetime in a way 
+              that affects all measurements of time and space near the black hole.
+              <br>At the very center of the black hole is where our understanding breaks down.
+              Einstein's theory of gravity seems to conclude that time itself is destroyed at the center of the hole, 
+              time comes to an abrupt end there and for this reason, a black hole is sometimes described as the "Reverse of Creation".
+            </p>
+            <button onclick="readmore3()" id="myBtn3" class="btn btn-dark">Read more</button>
           </div>
         </div>
       </div>
       <!--<div class="col">
         <div class="card h-100">
-          <img src="#" class="card-img-top" alt="img">
+          <img src="#" class="card-img-top img-fluid" alt="img">
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Inquisitive info...</p>
-            <a href="#" class="btn btn-primary">read more</a>
+            <a href="#" class="btn btn-dark">read more</a>
           </div>
         </div>
       </div>
       <div class="col">
         <div class="card h-100">
-          <img src="#" class="card-img-top" alt="img">
+          <img src="#" class="card-img-top img-fluid" alt="img">
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Inquisitive info...</p>
-            <a href="#" class="btn btn-primary">read more</a>
+            <a href="#" class="btn btn-dark">read more</a>
           </div>
         </div>
       </div>
       <div class="col">
         <div class="card h-100">
-          <img src="#" class="card-img-top" alt="img">
+          <img src="#" class="card-img-top img-fluid" alt="img">
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Inquisitive info...</p>
-            <a href="#" class="btn btn-primary">read more</a>
+            <a href="#" class="btn btn-dark">read more</a>
           </div>
         </div>
       </div>-->
