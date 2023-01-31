@@ -4,7 +4,6 @@
 {% endblock %}
 {% block content %}
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
   #table {
     padding-right: 100px;
@@ -14,14 +13,7 @@
 <div class="mb-3 mt-5">
   <h3>Simply Supported Beam Design</h3>
 </div>
-<!--<span>Beam Length (mm):</span>
-<input id="lengthValue">
-<span>Support</span>
-<input onkeyup="support();" id="supportValue">
-<span>Load</span>
-<input onkeyup="load();" id="loadValue">-->
-
-<form method="POST" action="{{ url_for('beamd_cal') }}">
+<form>
   <div class="mb-3 row">
     <div class="col-sm-6">
       <div class="mb-3 row">
@@ -51,85 +43,90 @@
     </div>
   </div>
 </form>
-
-<form method="POST" action="{{ url_for('beamsolu_cal') }}">
-  <table id="supportTable" class="table table-hover table-dark" style= 'width:900px'>
-    <tr>
-      <!-- Your Columns HERE -->
-      <th>Serial No</th>
-      <th>Support location from left end (in mm)</th>
-      <th>Type of Support</th>
-      <th>Direction of the Support</th>
-    </tr>
-    <tr id = "t1">
-      <td>Support Details</td>
-      <td><input class = "supportloc" name="supportloc" type="text"></td>
-      <td><input class = "supporttype" name="supporttype" type="text"></td>
-      <td><input class = "supportdirec" name="supportdirec" type="text"></td>
-    </tr>
-  </table>
-
-  <br><br><br>
-  <table id="loadTable" class="table table-hover table-dark" style= 'width:1100px'>
-    <tr>
-      <!-- Your Columns HERE -->
-      <th>Serial No</th>
-      <th>Load location from left end (in mm)</th>
-      <th>Type of Load</th>
-      <th>Direction of Load</th>
-      <th>Load value (in kN)</th>
-    </tr>
-    <tr id = "t2">
-      <td>Load Details</td>
-      <td><input class = "loadloc" name="loadloc" type="text"></td>
-      <td><input class = "loadtype" name="loadtype" type="text"></td>
-      <td><input class = "loaddirec" name="loaddirec" type="text"></td>
-      <td><input class = "loadvalue" name="loadvalue" type="text"></td>
-    </tr>
-  </table>
-  <br>
-  <button id = 'submit' type="submit" >SUBMIT</button>
-</form>
+<h4>More Input Parameters</h4>
+<table id="supportTable" class="table table-hover table-dark mb-3" style= 'width:500px'>
+</table>
+<table id="loadTable" class="table table-hover table-dark mb-3" style= 'width:500px'>
+</table>
 <br>
+<button id = 'submit' type="submit" >SUBMIT</button>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script>
   function support() {
-    var numSupportRows = $('#supportnum').val();
-    for(var i=1;i<numSupportRows;i++){
-      $('#supportTable').append('<tr><td>Support Details</td><td><input class = "supportloc" name="supportloc" type="text"></td><td><input class = "supporttype" name="supporttype" type="text"></td><td><input class = "supportdirec" name="supportdirec" type="text"></td></tr>');
+    // Get the number of rows from the user input
+    var numRows = document.getElementById("supportnum").value;
+    // Create a table element
+    var table = document.getElementById("supportTable");
+    table.innerHTML = "";
+    // Add table headers
+    var header = table.createTHead();
+    var headerRow = header.insertRow();
+    headerRow.innerHTML = "<th>SNo</th><th>Support location</th><th>Support Type</th><th>Support Direction</th>"
+    // Add table rows and columns with serial number
+    for (var i = 0; i < numRows; i++) {
+      var row = table.insertRow();
+      var cell1 = row.insertCell();
+      cell1.innerHTML = i + 1;
+      var cell2 = row.insertCell();
+      cell2.innerHTML = "<td><input name='supportloc' type='number' placeholder='from left end (in mm)'></td>";
+      var cell3 = row.insertCell();
+      cell3.innerHTML = "<td><input name='supporttype' type='text'></td>";
+      var cell4 = row.insertCell();
+      cell4.innerHTML = "<td><input name='supportdirec' type='text'></td>";
     }
   }
   function load() {
-    var numLoadRows = $('#loadnum').val();
-    for(var i=1;i<numLoadRows;i++){
-      $('#loadTable').append('<tr><td>Load Details</td><td><input class = "loadloc" name="loadloc" type="text"></td><td><input class = "loadtype" name="loadtype" type="text"></td><td><input class = "loaddirec" name="loaddirec" type="text"></td><td><input class = "loadvalue" name="loadvalue" type="text"></td></tr>');
+    // Get the number of rows from the user input
+    var numRows = document.getElementById("loadnum").value;
+    // Create a table element
+    var table = document.getElementById("loadTable");
+    table.innerHTML = "";
+    // Add table headers
+    var header = table.createTHead();
+    var headerRow = header.insertRow();
+    headerRow.innerHTML = "<th>SNo</th><th>Load location</th><th>Load Type</th><th>Load Direction</th><th>Load Value</th>"
+    // Add table rows and columns with serial number
+    for (var i = 0; i < numRows; i++) {
+      var row = table.insertRow();
+      var cell1 = row.insertCell();
+      cell1.innerHTML = i + 1;
+      var cell2 = row.insertCell();
+      cell2.innerHTML = "<td><input name='loadloc' type='number' placeholder='from left end in mm'></td>";
+      var cell3 = row.insertCell();
+      cell3.innerHTML = "<td><input name='loadtype' type='text'></td>";
+      var cell4 = row.insertCell();
+      cell4.innerHTML = "<td><input name='loaddirec' type='text'></td>";
+      var cell4 = row.insertCell();
+      cell4.innerHTML = "<td><input name='loadvalue' type='number' placeholder='in kN'></td>";
     }
   }
 </script>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-  
-    $("#submit").on('click',function(){
-    
-      var arrData=[];
-      // loop over each table row (tr)
-      $("#supportTable tr").each(function(){
-        var currentRow=$(this);
-        var col1_value=currentRow.find("td:eq(0)").text();
-        var col2_value=currentRow.find("td:eq(1)").text();
-        var col3_value=currentRow.find("td:eq(2)").text();
-    
-        var obj={};
-        obj.col1=col1_value;
-        obj.col2=col2_value;
-        obj.col3=col3_value;
-    
-        arrData.push(obj);
-      });
-      alert(arrData);
-      console.log(arrData);
+<script>
+  $("#submit").on('click',function(){
+    var arrData=[];
+    // loop over each table row (tr)
+    $("#supportTable tr").each(function(){
+          var currentRow=$(this);
+          var col1_value=currentRow.find("td:eq(0)").text();
+          var col2_value=currentRow.find("td:eq(1)").text();
+          var col3_value=currentRow.find("td:eq(2)").text();
+          var col4_value=currentRow.find("td:eq(3)").text();
+          var obj={};
+          obj.col1=col1_value;
+          obj.col2=col2_value;
+          obj.col3=col3_value;
+          obj.col4=col4_value;
+          arrData.push(obj);
+    });
+    console.log(arrData);
+    $.ajax({
+      type: "POST",
+      url: "/beamd_cal",
+      data: {arrData: arrData},
+      success: function(response) {
+        console.log(response);
+      }
     });
   });
 </script>
-
 {% endblock %}
