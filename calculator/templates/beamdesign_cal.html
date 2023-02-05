@@ -35,7 +35,7 @@
       <div class="mb-3 row">
         <label for="supportnum" class="col-sm-3 col-form-label">Support Number:</label>
         <div class="col-sm-3">
-          <input type='number' step="1" min="1" max="2" class="form-control form-control-sm" id='supportnum' name='supportnum' value="supportnum" onkeyup="support();">
+          <select type='number' class="form-control form-control-sm" id='supportnum' name='supportnum' value="supportnum" onchange="support();"><option selected>Choose</option><option value='2'>2</option></select>
         </div>
       </div>
     </div>
@@ -43,7 +43,7 @@
       <div class="mb-3 row">
         <label for="loadnum" class="col-sm-3 col-form-label">Load Number:</label>
         <div class="col-sm-3">
-          <input type='number' step="1" min="0" max="6" class="form-control form-control-sm" id='loadnum' name='loadnum' value="loadnum" onkeyup="load();">
+          <select type='number' class="form-control form-control-sm" id='loadnum' name='loadnum' value="loadnum" onchange="load();"><option selected>Choose</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option></select>
         </div>
       </div>
     </div>
