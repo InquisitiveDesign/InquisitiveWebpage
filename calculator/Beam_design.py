@@ -24,14 +24,8 @@ def beamd(bl,ns,nl,supportloc,supporttype,supportdirec,loadloc,loadtype,loaddire
         elif loaddirec[m] == "AntiClockwise" and loadtype[m] == "Moment":
             loadmoment = loadmoment + loadvalue[m]
     if supportdirec[1] == "Downwards" and supporttype[1] == "Pin":
-        if supportloc[0] > 0:
-            R2 = (1/(supportloc[1]-supportloc[0]))*loadmoment
-        elif supportloc[0] == 0:
-            R2 = (1/float(bl))*loadmoment
+        R2 = (1/(supportloc[1]-supportloc[0]))*loadmoment
     elif supportdirec[1] == "Upwards" and supporttype[1] == "Pin":
-        if supportloc[0] > 0:
-            R2 = (-1/(supportloc[1]-supportloc[0]))*loadmoment
-        elif supportloc[0] == 0:
-            R2 = (-1/float(bl))*loadmoment
+        R2 = (-1/(supportloc[1]-supportloc[0]))*loadmoment
     R1 = Totload - R2
     return [round(R1,2),round(R2,2)]
