@@ -4,22 +4,28 @@
 {% endblock %}
 {% block content %}
 <head>
+  <script
+  src="https://code.jquery.com/jquery-3.6.3.js"
+  integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+  crossorigin="anonymous"></script>
+
+  <div class="mb-3 mt-5">
+    <h3>Simply Supported Beam Design</h3>
+  </div>
+</head>
 <style>
   #table {
     padding-right: 100px;
   }
 </style>
-</head>
-<div class="mb-3 mt-5">
-  <h3>Simply Supported Beam Design</h3>
-</div>
-<form>
+
+<form method="POST" action="{{ url_for('beamd_cal') }}">
   <div class="mb-3 row">
     <div class="col-sm-6">
       <div class="mb-3 row">
         <label for="beamlength" class="col-sm-3 col-form-label">Beam Length:</label>
         <div class="col-sm-3">
-          <input type='number' step="0.1" class="form-control form-control-sm" id='beamlength' name='beamlength' placeholder="in mm">
+          <input type='number' step="0.1" class="form-control form-control-sm" id='beamlength' name='beamlength' value='beamlength' placeholder="in mm">
         </div>
       </div>
     </div>
@@ -29,7 +35,7 @@
       <div class="mb-3 row">
         <label for="supportnum" class="col-sm-3 col-form-label">Support Number:</label>
         <div class="col-sm-3">
-          <input type='number' step="1" min="1" max="2" class="form-control form-control-sm" id='supportnum' name='supportnum' onkeyup="support();">
+          <input type='number' step="1" min="1" max="2" class="form-control form-control-sm" id='supportnum' name='supportnum' value="supportnum" onkeyup="support();">
         </div>
       </div>
     </div>
@@ -37,31 +43,53 @@
       <div class="mb-3 row">
         <label for="loadnum" class="col-sm-3 col-form-label">Load Number:</label>
         <div class="col-sm-3">
-          <input type='number' step="1" min="0" max="6" class="form-control form-control-sm" id='loadnum' name='loadnum' onkeyup="load();">
+          <input type='number' step="1" min="0" max="6" class="form-control form-control-sm" id='loadnum' name='loadnum' value="loadnum" onkeyup="load();">
         </div>
       </div>
     </div>
   </div>
 </form>
+
 <h4>More Input Parameters</h4>
 <table id="supportTable" class="table table-hover table-dark mb-3" style= 'width:500px'>
 </table>
+
 <table id="loadTable" class="table table-hover table-dark mb-3" style= 'width:500px'>
 </table>
+<div>
+  <button id ='submit' type="submit" >SUBMIT</button>
+</div>
 <br>
-<button id = 'submit' type="submit" >SUBMIT</button>
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<table class="table table-hover table-dark">
+  <thead>
+    <tr>
+      <th>Left Support Reaction (in kN)</th>
+      <th>Right Support Reaction (in kN)</th>
+    </tr>
+    <tr>
+      {% if result: %}
+        {% for key, value in result.items() %}
+          <th>{{value}}</th>
+        {% endfor %}
+      {% endif %}
+    </tr>
+  </thead>
+</table>
+
 <script>
   function support() {
     // Get the number of rows from the user input
     var numRows = document.getElementById("supportnum").value;
+
     // Create a table element
     var table = document.getElementById("supportTable");
     table.innerHTML = "";
+
     // Add table headers
     var header = table.createTHead();
     var headerRow = header.insertRow();
     headerRow.innerHTML = "<th>SNo</th><th>Support location</th><th>Support Type</th><th>Support Direction</th>"
+
     // Add table rows and columns with serial number
     for (var i = 0; i < numRows; i++) {
       var row = table.insertRow();
@@ -70,21 +98,25 @@
       var cell2 = row.insertCell();
       cell2.innerHTML = "<td><input name='supportloc' type='number' placeholder='from left end (in mm)'></td>";
       var cell3 = row.insertCell();
-      cell3.innerHTML = "<td><input name='supporttype' type='text'></td>";
+      cell3.innerHTML = "<td><select name='supporttype'><option value='Pin'>Pin</option></select></td>";
       var cell4 = row.insertCell();
-      cell4.innerHTML = "<td><input name='supportdirec' type='text'></td>";
+      cell4.innerHTML = "<td><select name='suppordirec'><option value='Upwards'>Upwards</option><option value='Downwards'>Downwards</option></select></td>";
     }
   }
+
   function load() {
     // Get the number of rows from the user input
     var numRows = document.getElementById("loadnum").value;
+
     // Create a table element
     var table = document.getElementById("loadTable");
     table.innerHTML = "";
+
     // Add table headers
     var header = table.createTHead();
     var headerRow = header.insertRow();
     headerRow.innerHTML = "<th>SNo</th><th>Load location</th><th>Load Type</th><th>Load Direction</th><th>Load Value</th>"
+
     // Add table rows and columns with serial number
     for (var i = 0; i < numRows; i++) {
       var row = table.insertRow();
@@ -93,40 +125,84 @@
       var cell2 = row.insertCell();
       cell2.innerHTML = "<td><input name='loadloc' type='number' placeholder='from left end in mm'></td>";
       var cell3 = row.insertCell();
-      cell3.innerHTML = "<td><input name='loadtype' type='text'></td>";
+      cell3.innerHTML = "<td><select name='loadtype'><option value='Point'>Point</option><option value='Moment'>Moment</option></select></td>";
       var cell4 = row.insertCell();
-      cell4.innerHTML = "<td><input name='loaddirec' type='text'></td>";
+      cell4.innerHTML = "<td><select name='loaddirec'><option value='Downwards'>Downwards</option><option value='Upwards'>Upwards</option></select></td>";
       var cell4 = row.insertCell();
       cell4.innerHTML = "<td><input name='loadvalue' type='number' placeholder='in kN'></td>";
     }
   }
 </script>
+
 <script>
   $("#submit").on('click',function(){
+ 
     var arrData=[];
     // loop over each table row (tr)
     $("#supportTable tr").each(function(){
           var currentRow=$(this);
+      
           var col1_value=currentRow.find("td:eq(0)").text();
-          var col2_value=currentRow.find("td:eq(1)").text();
-          var col3_value=currentRow.find("td:eq(2)").text();
-          var col4_value=currentRow.find("td:eq(3)").text();
+          var col2_value=currentRow.find("td:eq(1) input").val();
+          var col3_value=currentRow.find("td:eq(2) select").val();
+          var col4_value=currentRow.find("td:eq(3) select").val();
+
           var obj={};
           obj.col1=col1_value;
           obj.col2=col2_value;
           obj.col3=col3_value;
           obj.col4=col4_value;
+
           arrData.push(obj);
     });
-    console.log(arrData);
-    $.ajax({
-      type: "POST",
-      url: "/beamd_cal",
-      data: {arrData: arrData},
-      success: function(response) {
-        console.log(response);
-      }
+    //console.log(arrData);
+
+    var arrData1=[];
+    // loop over each table row (tr)
+    $("#loadTable tr").each(function(){
+      var currentRow=$(this);
+      var col1_value=currentRow.find("td:eq(0)").text();
+          var col2_value=currentRow.find("td:eq(1) input").val();
+          var col3_value=currentRow.find("td:eq(2) select").val();
+          var col4_value=currentRow.find("td:eq(3) select").val();
+          var col5_value=currentRow.find("td:eq(4) input").val();
+
+          var obj1={};
+          obj1.col1=col1_value;
+          obj1.col2=col2_value;
+          obj1.col3=col3_value;
+          obj1.col4=col4_value;
+          obj1.col5=col5_value;
+
+          arrData1.push(obj1);
     });
+    //console.log(arrData1);
+
+    var formData = {
+      beamlength: $("#beamlength").val(),
+      supportnum: $("#supportnum").val(),
+      loadnum: $("#loadnum").val()
+    };
+    //console.log(formData);
+
+    var data = {
+    form1: formData,
+    form2: arrData,
+    form3: arrData1
+    };
+
+    fetch('/beamd_cal', {
+      method: 'POST',
+      cache: "no-cache",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error("error in sending data to server",error));
+    
   });
 </script>
 {% endblock %}
