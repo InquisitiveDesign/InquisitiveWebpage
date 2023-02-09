@@ -60,7 +60,7 @@
   <button id ='submit' type="submit" >SUBMIT</button>
 </div>
 <br>
-<table class="table table-hover table-dark">
+<!--<table class="table table-hover table-dark">
   <thead>
     <tr>
       <th>Left Support Reaction (in kN)</th>
@@ -74,7 +74,7 @@
       {% endif %}
     </tr>
   </thead>
-</table>
+</table>-->
 
 <script>
   function support() {
@@ -203,6 +203,46 @@
     .then(data => console.log(data))
     .catch(error => console.error("error in sending data to server",error));
     
+    fetch('/beamd_cal')
+      .then(data => {
+        //data = JSON.parse(data);
+        console.log('Data received successfully: ', data);
+        // Manipulate or display data as required
+        let table = createTable(data);
+        document.body.appendChild(table);
+      })
+      .catch(error => console.error('Error receiving data: ', error));
   });
+</script>
+<script>
+  function createTable(data) {
+  let table = document.createElement("table");
+  table.setAttribute("class", "table table-hover table-dark");
+
+  let thead = document.createElement("thead");
+  let tr = document.createElement("tr");
+  let th1 = document.createElement("th");
+  th1.innerHTML = "Left Support Reaction (in kN)";
+  let th2 = document.createElement("th");
+  th2.innerHTML = "Right Support Reaction (in kN)";
+  tr.appendChild(th1);
+  tr.appendChild(th2);
+  thead.appendChild(tr);
+  table.appendChild(thead);
+
+  let tbody = document.createElement("tbody");
+  for (let key in data) {
+    let tr = document.createElement("tr");
+    let td1 = document.createElement("td");
+    td1.innerHTML = data[key];
+    let td2 = document.createElement("td");
+    td2.innerHTML = data[key];
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tbody.appendChild(tr);
+  }
+  table.appendChild(tbody);
+  return table;
+}
 </script>
 {% endblock %}
