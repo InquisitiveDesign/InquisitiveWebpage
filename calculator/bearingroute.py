@@ -129,5 +129,5 @@ def beamd_cal():
 		list1 = ['R1', 'R2']
 		result = dict(zip(list1,supportrxn))
 		d = jsonify(result)
-		return d
+		return d, 200, {'Content-Type': 'application/json'}
 	return render_template('beamdesign_cal.html')
