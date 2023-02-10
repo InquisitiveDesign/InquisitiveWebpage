@@ -205,7 +205,9 @@
     
     fetch('/beamd_cal')
       .then(data => {
-        //data = JSON.parse(data);
+        return data.json()
+      })
+      .then(data => {
         console.log('Data received successfully: ', data);
         // Manipulate or display data as required
         let table = createTable(data);
