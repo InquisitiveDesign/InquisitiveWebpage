@@ -204,9 +204,7 @@
     .catch(error => console.error("error in sending data to server",error));
     
     fetch('/beamd_cal')
-      .then(data => {
-        return data.json()
-      })
+      .then(data => data.json())
       .then(data => {
         console.log('Data received successfully: ', data);
         // Manipulate or display data as required
