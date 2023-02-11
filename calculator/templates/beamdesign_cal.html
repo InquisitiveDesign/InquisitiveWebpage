@@ -218,6 +218,17 @@
       document.body.appendChild(table);
     })
     .catch(error => console.error("error in sending data to server",error));
+
+    /*fetch('/beam_data')
+      //.then(response => response.json())
+      //.then(json => console.log(json))
+      .then(data => {
+        console.log('Data received successfully: ', data);
+        // Manipulate or display data as required
+        let table = createTable(data);
+        document.body.appendChild(table);
+      })
+      .catch(error => console.error('Error receiving data: ', error));*/
   })  
 </script>
 <script>
