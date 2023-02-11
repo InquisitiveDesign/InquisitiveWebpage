@@ -8,6 +8,7 @@ from calculator.shaft_design import shaft_combined, shaft_from_rigiditymodulus
 from calculator.Beam_design import beamd
 from calculator import bearforms
 from calculator.models import Infoform, Dtform
+import json
 
 @app.route('/', methods=['GET'])
 @app.route('/home', methods=['GET'])
