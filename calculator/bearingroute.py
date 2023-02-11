@@ -1,5 +1,5 @@
 from calculator import app, db
-from flask import Flask, render_template, request, jsonify, logging, make_response
+from flask import Flask, render_template, request, jsonify, logging, make_response, json
 from calculator.bearforms import UserForm
 from calculator.my_bearing import my_bearing
 from calculator.bearing_selector import bearing_selector
@@ -30,6 +30,7 @@ def result():
 		Rotation_fact = 1
 	else:
 		Rotation_fact = 1.2
+
 	hr_eachdy = float(request.form["hrperday"])
 	yr = float(request.form["exp_years"])
 	output = bearing_selector(bore_dia,RPM,VFC,HFC,AFC,Rotation_fact,yr,hr_eachdy)
@@ -60,6 +61,7 @@ def shaft_rec():
 	S = request.form["yield"]
 	F = request.form["fos"]
 	dr = request.form["diaratio"]
+
 	#loadtype
 	if request.form["loadtype"] == "Gradual Load":
 		LT = "G"
@@ -67,22 +69,26 @@ def shaft_rec():
 		LT = "M"
 	else:
 		LT = "H"
+	
 	#theory
 	if request.form["theory"] == "Max Shear Stress Theory":
 		Th = "S"
 	else:
 		Th = "D"
+
 	#designbase
 	if request.form["designbase"] == "Torsion Equivalent":
 		db = "T"
 	else:
 		db = "B"
+
 	outcome = shaft_combined(BM,TM,S,F,LT,Th,db,dr)
 	return render_template('shaftdesign_cal.html',outcome = outcome)
 
 @app.route('/keyd cal', methods=['GET'])
 def keyd_cal():
 	return render_template('keydesign_cal.html')
+
 
 @app.route('/keyd cal', methods=['GET','POST'])
 def key_rec():
@@ -91,20 +97,32 @@ def key_rec():
 	S = float(request.form["yield"])
 	F = float(request.form["fos"])
 	D = float(request.form["sdia"])
+
 	if request.form["theory"] == "Max Shear Stress Theory":
 		Th = "S"
 	else:
 		Th = "D"
+
 	R = key_d(P,N,S,F,D,Th)
 	return render_template('keydesign_cal.html',R = R)
 
-@app.route('/beamd_cal', methods=['GET','POST'])
+@app.route('/beamd_cal', methods=['GET'])
 def beamd_cal():
+	return render_template('beamdesign_cal.html')
+
+@app.route('/beam_data', methods=['GET','POST'])
+def beam_data():
 	if request.method == 'POST':
 		Data = request.get_json()
+		#print("Data: ", Data)
+
 		bl = float(Data['form1']['beamlength'])
+		#print("Beam length: ",BL)
 		ns = float(Data['form1']['supportnum'])
+		#print("Support number: ",Snum)
 		nl = float(Data['form1']['loadnum'])
+		#print("Load number: ",Lnum)
+			
 		supportloc = []
 		supporttype = []
 		supportdirec = []
@@ -119,6 +137,7 @@ def beamd_cal():
 			supportloc.append(float(suppdata[S+1]['col2']))
 			supporttype.append(suppdata[S+1]['col3'])
 			supportdirec.append(suppdata[S+1]['col4'])
+			
 		for L in range(len(loaddata)-1):
 			loadloc.append(float(loaddata[L+1]['col2']))
 			loadtype.append(loaddata[L+1]['col3'])
@@ -126,8 +145,13 @@ def beamd_cal():
 			loadvalue.append(float(loaddata[L+1]['col5']))
 
 		supportrxn = beamd(bl,ns,nl,supportloc,supporttype,supportdirec,loadloc,loadtype,loaddirec,loadvalue)
+
+		#print("supportrxn: ",supportrxn)
 		list1 = ['R1', 'R2']
 		result = dict(zip(list1,supportrxn))
-		d = jsonify(result)
-		return d, 200, {'Content-Type': 'application/json'}
-	return render_template('beamdesign_cal.html')
+		print(result)
+		#d = json.dumps(result, indent=2)
+		response = json.dumps(result, indent=2)
+		print("response data type: ",type(response))
+		print(response)
+		return response
