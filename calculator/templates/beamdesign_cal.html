@@ -35,6 +35,7 @@
       <div class="mb-3 row">
         <label for="supportnum" class="col-sm-3 col-form-label">Support Number:</label>
         <div class="col-sm-3">
+          <!--<input type='number' step="1" min="2" max="2" class="form-control form-control-sm" id='supportnum' name='supportnum' value="2" readonly onkeyup="support();">-->
           <select type='number' class="form-control form-control-sm" id='supportnum' name='supportnum' value="supportnum" onchange="support();"><option selected>Choose</option><option value='2'>2</option></select>
         </div>
       </div>
@@ -43,6 +44,7 @@
       <div class="mb-3 row">
         <label for="loadnum" class="col-sm-3 col-form-label">Load Number:</label>
         <div class="col-sm-3">
+          <!--<input type='number' step="1" min="0" max="6" class="form-control form-control-sm" id='loadnum' name='loadnum' value="loadnum" onkeyup="load();">-->
           <select type='number' class="form-control form-control-sm" id='loadnum' name='loadnum' value="loadnum" onchange="load();"><option selected>Choose</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option></select>
         </div>
       </div>
@@ -57,22 +59,27 @@
 <table id="loadTable" class="table table-hover table-dark mb-3" style= 'width:700px'>
 </table>
 <div>
-  <button id ='submit' type="submit" >SUBMIT</button>
+  <button id ='submit' type="submit" class="btn btn-outline-dark">SUBMIT</button>
 </div>
-<br>
+
 <!--<table class="table table-hover table-dark">
   <thead>
     <tr>
       <th>Left Support Reaction (in kN)</th>
       <th>Right Support Reaction (in kN)</th>
     </tr>
-    <tr>
-      {% if result: %}
-        {% for key, value in result.items() %}
-          <th>{{value}}</th>
+    {% if d: %}
+      <tr>
+        {% for key, value in d.items() %}
+        <td>{{value}}</td>
         {% endfor %}
-      {% endif %}
-    </tr>
+      </tr>
+    {% else %}
+      <tr>
+        <td>----</td>
+        <td>----</td>
+      </tr>
+    {% endif %}
   </thead>
 </table>-->
 
@@ -96,7 +103,7 @@
       var cell1 = row.insertCell();
       cell1.innerHTML = i + 1;
       var cell2 = row.insertCell();
-      cell2.innerHTML = "<td><input name='supportloc' type='number' placeholder='from left end (in mm)'></td>";
+      cell2.innerHTML = "<td><input name='supportloc' type='number' min='0' placeholder='from left end (in mm)'></td>";
       var cell3 = row.insertCell();
       cell3.innerHTML = "<td><select name='supporttype'><option value='Pin'>Pin</option></select></td>";
       var cell4 = row.insertCell();
@@ -123,7 +130,7 @@
       var cell1 = row.insertCell();
       cell1.innerHTML = i + 1;
       var cell2 = row.insertCell();
-      cell2.innerHTML = "<td><input name='loadloc' type='number' placeholder='from left end in mm'></td>";
+      cell2.innerHTML = "<td><input name='loadloc' type='number' min='0' placeholder='from left end in mm'></td>";
       var cell3 = row.insertCell();
       cell3.innerHTML = "<td><select name='loadtype'><option value='Point'>Point</option><option value='Moment'>Moment</option></select></td>";
       var cell4 = row.insertCell();
@@ -191,7 +198,11 @@
     form3: arrData1
     };
 
-    fetch('/beamd_cal', {
+    fetch('/beamd_cal')
+      .then(response => response.html())
+      //.then(json => console.log(json))
+
+    fetch('/beam_data', {
       method: 'POST',
       cache: "no-cache",
       headers: {
@@ -200,19 +211,14 @@
       body: JSON.stringify(data)
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => {
+      console.log('Data received successfully: ', data);
+      // Manipulate or display data as required
+      let table = createTable(data);
+      document.body.appendChild(table);
+    })
     .catch(error => console.error("error in sending data to server",error));
-    
-    fetch('/beamd_cal')
-      .then(response => response.json())
-      .then(data => {
-        console.log('Data received successfully: ', data);
-        // Manipulate or display data as required
-        let table = createTable(data);
-        document.body.appendChild(table);
-      })
-      .catch(error => console.error('Error receiving data: ', error));
-  });
+  })  
 </script>
 <script>
   function createTable(data) {
