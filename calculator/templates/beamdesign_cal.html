@@ -62,27 +62,6 @@
   <button id ='submit' type="submit" class="btn btn-outline-dark">SUBMIT</button>
 </div>
 
-<!--<table class="table table-hover table-dark">
-  <thead>
-    <tr>
-      <th>Left Support Reaction (in kN)</th>
-      <th>Right Support Reaction (in kN)</th>
-    </tr>
-    {% if d: %}
-      <tr>
-        {% for key, value in d.items() %}
-        <td>{{value}}</td>
-        {% endfor %}
-      </tr>
-    {% else %}
-      <tr>
-        <td>----</td>
-        <td>----</td>
-      </tr>
-    {% endif %}
-  </thead>
-</table>-->
-
 <script>
   function support() {
     // Get the number of rows from the user input
@@ -199,7 +178,7 @@
     };
 
     fetch('/beamd_cal')
-      .then(response => response.html())
+      .then(response => response.html)
       //.then(json => console.log(json))
 
     fetch('/beam_data', {
@@ -231,6 +210,7 @@
       .catch(error => console.error('Error receiving data: ', error));*/
   })  
 </script>
+
 <script>
   function createTable(data) {
   let table = document.createElement("table");
@@ -248,16 +228,16 @@
   table.appendChild(thead);
 
   let tbody = document.createElement("tbody");
+  let tr1 = document.createElement("tr");
   for (let key in data) {
-    let tr = document.createElement("tr");
     let td1 = document.createElement("td");
     td1.innerHTML = data[key];
-    let td2 = document.createElement("td");
-    td2.innerHTML = data[key];
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-    tbody.appendChild(tr);
+    //let td2 = document.createElement("td");
+    //td2.innerHTML = data[key];
+    tr1.appendChild(td1);
+    //tr.appendChild(td2);
   }
+  tbody.appendChild(tr1);
   table.appendChild(tbody);
   return table;
 }
