@@ -25,7 +25,7 @@
       <div class="mb-3 row">
         <label for="beamlength" class="col-sm-3 col-form-label">Beam Length:</label>
         <div class="col-sm-3">
-          <input type='number' step="0.1" class="form-control form-control-sm" id='beamlength' name='beamlength' value=0 placeholder="in mm">
+          <input type='number' step="0.1" class="form-control form-control-sm" id='beamlength' name='beamlength' placeholder="in mm">
         </div>
       </div>
     </div>
@@ -56,10 +56,26 @@
 <table id="supportTable" class="table table-hover table-dark mb-3" style= 'width:600px'>
 </table>
 
-<table id="loadTable" class="table table-hover table-dark mb-3" style= 'width:700px'>
+<table id="loadTable" class="table table-hover table-dark mb-4" style= 'width:700px'>
 </table>
-<div>
-  <button id ='submit' type="submit" class="btn btn-outline-dark">SUBMIT</button>
+
+<table id="dataTable" class="table table-hover table-dark mb-3">
+  <thead>
+    <tr>
+      <th>Left Support Reaction (in kN)</th>
+      <th>Right Support Reaction (in kN)</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<div class="row">
+  <div class="col-sm-2">
+    <button id ='submit' type="submit" class="btn btn-outline-dark">CALCULATE</button>
+  </div>
+  <div class="col sm-1">
+    <button id ='reset' type="reset" class="btn btn-outline-dark">RESET</button>
+  </div>
 </div>
 
 <script>
@@ -122,12 +138,11 @@
 
 <script>
   $("#submit").on('click',function(){
- 
     var arrData=[];
     // loop over each table row (tr)
     $("#supportTable tr").each(function(){
           var currentRow=$(this);
-      
+        
           var col1_value=currentRow.find("td:eq(0)").text();
           var col2_value=currentRow.find("td:eq(1) input").val();
           var col3_value=currentRow.find("td:eq(2) select").val();
@@ -193,53 +208,23 @@
     .then(data => {
       console.log('Data received successfully: ', data);
       // Manipulate or display data as required
-      let table = createTable(data);
-      document.body.appendChild(table);
+      let tbody = document.querySelector("#dataTable tbody");
+      // Loop through the data and add rows to the table
+      let row = document.createElement("tr");
+      for (let key in data) {
+        let load = document.createElement("td");
+        load.innerHTML = data[key];
+        row.appendChild(load);
+      }
+      tbody.appendChild(row);
     })
-    .catch(error => console.error("error in sending data to server",error));
+    .catch(error => console.error("error in sending data to server",error));      
+  })
+    
+  $("#reset").on('click',function(){
+    location.reload();
+  })
 
-    /*fetch('/beam_data')
-      //.then(response => response.json())
-      //.then(json => console.log(json))
-      .then(data => {
-        console.log('Data received successfully: ', data);
-        // Manipulate or display data as required
-        let table = createTable(data);
-        document.body.appendChild(table);
-      })
-      .catch(error => console.error('Error receiving data: ', error));*/
-  })  
 </script>
 
-<script>
-  function createTable(data) {
-  let table = document.createElement("table");
-  table.setAttribute("class", "table table-hover table-dark");
-
-  let thead = document.createElement("thead");
-  let tr = document.createElement("tr");
-  let th1 = document.createElement("th");
-  th1.innerHTML = "Left Support Reaction (in kN)";
-  let th2 = document.createElement("th");
-  th2.innerHTML = "Right Support Reaction (in kN)";
-  tr.appendChild(th1);
-  tr.appendChild(th2);
-  thead.appendChild(tr);
-  table.appendChild(thead);
-
-  let tbody = document.createElement("tbody");
-  let tr1 = document.createElement("tr");
-  for (let key in data) {
-    let td1 = document.createElement("td");
-    td1.innerHTML = data[key];
-    //let td2 = document.createElement("td");
-    //td2.innerHTML = data[key];
-    tr1.appendChild(td1);
-    //tr.appendChild(td2);
-  }
-  tbody.appendChild(tr1);
-  table.appendChild(tbody);
-  return table;
-}
-</script>
 {% endblock %}
