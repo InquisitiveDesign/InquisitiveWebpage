@@ -127,15 +127,16 @@
       var cell2 = row.insertCell();
       cell2.innerHTML = "<td><input name='loadloc' type='number' min='0' placeholder='from left end (in mm)'></td>";
       var cell3 = row.insertCell();
-      cell3.innerHTML = "<td><select name='loadtype' id='loadtype' ><option value='Point'>Point</option><option value='Moment'>Moment</option></select></td>";
+      cell3.innerHTML = "<td><select name='loadtype' id='loadtype" + i + "' ><option value='Point'>Point</option><option value='Moment'>Moment</option></select></td>";
       var cell4 = row.insertCell();
-      cell4.innerHTML = "<td><select name='loaddirec' id='loaddirec'><option value=''>Choose</option></select></td>";
-      let loadtype = document.getElementById("loadtype");
-      let loaddirec = document.getElementById("loaddirec");
+      cell4.innerHTML = "<td><select name='loaddirec' id='loaddirec" + i + "'><option value=''>Choose</option></select></td>";
+      var cell5 = row.insertCell();
+      cell5.innerHTML = "<td><input name='loadvalue' type='number' placeholder='in kN/kN-mm'></td>";
+      let loadtype = document.getElementById("loadtype"+i);
+      let loaddirec = document.getElementById("loaddirec"+i);
 
       loadtype.addEventListener("change", function() {
         let option = loadtype.value;
-
         loaddirec.innerHTML = "";
 
         if (option === 'Point') {
@@ -145,8 +146,6 @@
           loaddirec.innerHTML = "<td><select name='loaddirec'><option value='Clockwise'>Clockwise</option><option value='AntiClockwise'>AntiClockwise</option></select></td>";
         }
       })
-      var cell5 = row.insertCell();
-      cell5.innerHTML = "<td><input name='loadvalue' type='number' placeholder='in kN/kN-mm'></td>";
     }
   }
 </script>
@@ -161,7 +160,6 @@
           var col2_value=currentRow.find("td:eq(1) input").val();
           var col3_value=currentRow.find("td:eq(2) select").val();
           var col4_value=currentRow.find("td:eq(3) select").val();
-
           var obj={};
           obj.col1=col1_value;
           obj.col2=col2_value;
@@ -171,6 +169,7 @@
           arrData.push(obj);
     });
     //console.log(arrData);
+
     var arrData1=[];
     // loop over each table row (tr)
     $("#loadTable tr").each(function(){
@@ -180,7 +179,6 @@
           var col3_value=currentRow.find("td:eq(2) select").val();
           var col4_value=currentRow.find("td:eq(3) select").val();
           var col5_value=currentRow.find("td:eq(4) input").val();
-
           var obj1={};
           obj1.col1=col1_value;
           obj1.col2=col2_value;
@@ -191,6 +189,7 @@
           arrData1.push(obj1);
     });
     //console.log(arrData1);
+
     var formData = {
       beamlength: $("#beamlength").val(),
       supportnum: $("#supportnum").val(),
@@ -229,7 +228,8 @@
       tbody.appendChild(row);
     })
     .catch(error => console.error("error in sending data to server",error));   
-  }) 
+  })
+    
   $("#reset").on('click',function(){
     location.reload();
   })
