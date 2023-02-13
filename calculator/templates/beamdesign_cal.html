@@ -125,17 +125,31 @@
       var cell1 = row.insertCell();
       cell1.innerHTML = i + 1;
       var cell2 = row.insertCell();
-      cell2.innerHTML = "<td><input name='loadloc' type='number' min='0' placeholder='from left end in mm'></td>";
+      cell2.innerHTML = "<td><input name='loadloc' type='number' min='0' placeholder='from left end (in mm)'></td>";
       var cell3 = row.insertCell();
-      cell3.innerHTML = "<td><select name='loadtype'><option value='Point'>Point</option><option value='Moment'>Moment</option></select></td>";
+      cell3.innerHTML = "<td><select name='loadtype' id='loadtype' ><option value='Point'>Point</option><option value='Moment'>Moment</option></select></td>";
       var cell4 = row.insertCell();
-      cell4.innerHTML = "<td><select name='loaddirec'><option value='Downwards'>Downwards</option><option value='Upwards'>Upwards</option><option value='Clockwise'>Clockwise</option><option value='AntiClockwise'>AntiClockwise</option></select></td>";
-      var cell4 = row.insertCell();
-      cell4.innerHTML = "<td><input name='loadvalue' type='number' placeholder='in kN'></td>";
+      cell4.innerHTML = "<td><select name='loaddirec' id='loaddirec'><option value=''>Downwards</option></select></td>";
+      let loadtype = document.getElementById("loadtype");
+      let loaddirec = document.getElementById("loaddirec");
+
+      loadtype.addEventListener("change", function() {
+        let option = loadtype.value;
+
+        loaddirec.innerHTML = "";
+
+        if (option === 'Point') {
+          loaddirec.innerHTML = "<td><select name='loaddirec'><option value='Downwards'>Downwards</option><option value='Upwards'>Upwards</option></select></td>";
+        }
+        else if (option === 'Moment') {
+          loaddirec.innerHTML = "<td><select name='loaddirec'><option value='Clockwise'>Clockwise</option><option value='AntiClockwise'>AntiClockwise</option></select></td>";
+        }
+      })
+      var cell5 = row.insertCell();
+      cell5.innerHTML = "<td><input name='loadvalue' type='number' placeholder='in kN/kN-mm'></td>";
     }
   }
 </script>
-
 <script>
   $("#submit").on('click',function(){
     var arrData=[];
@@ -157,7 +171,6 @@
           arrData.push(obj);
     });
     //console.log(arrData);
-
     var arrData1=[];
     // loop over each table row (tr)
     $("#loadTable tr").each(function(){
@@ -178,20 +191,17 @@
           arrData1.push(obj1);
     });
     //console.log(arrData1);
-
     var formData = {
       beamlength: $("#beamlength").val(),
       supportnum: $("#supportnum").val(),
       loadnum: $("#loadnum").val()
     };
     //console.log(formData);
-
     var data = {
     form1: formData,
     form2: arrData,
     form3: arrData1
     };
-
     fetch('/beamd_cal')
       .then(response => response.html)
       //.then(json => console.log(json))
@@ -218,13 +228,11 @@
       }
       tbody.appendChild(row);
     })
-    .catch(error => console.error("error in sending data to server",error));      
-  })
-    
+    .catch(error => console.error("error in sending data to server",error));   
+  }) 
   $("#reset").on('click',function(){
     location.reload();
   })
-
 </script>
 
 {% endblock %}
