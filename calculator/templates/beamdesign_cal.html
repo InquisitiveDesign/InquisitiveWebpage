@@ -100,9 +100,9 @@
       var cell2 = row.insertCell();
       cell2.innerHTML = "<td><input name='supportloc' type='number' min='0' placeholder='from left end (in mm)'></td>";
       var cell3 = row.insertCell();
-      cell3.innerHTML = "<td><select name='supporttype'><option value='Pin'>Pin</option></select></td>";
+      cell3.innerHTML = "<td><select name='supporttype'><option selected>Choose</option><option value='Pin'>Pin</option></select></td>";
       var cell4 = row.insertCell();
-      cell4.innerHTML = "<td><select name='suppordirec'><option value='Upwards'>Upwards</option><option value='Downwards'>Downwards</option></select></td>";
+      cell4.innerHTML = "<td><select name='suppordirec'><option selected>Choose</option><option value='Upwards'>Upwards</option><option value='Downwards'>Downwards</option></select></td>";
     }
   }
 
@@ -127,7 +127,7 @@
       var cell2 = row.insertCell();
       cell2.innerHTML = "<td><input name='loadloc' type='number' min='0' placeholder='from left end (in mm)'></td>";
       var cell3 = row.insertCell();
-      cell3.innerHTML = "<td><select name='loadtype' id='loadtype" + i + "' ><option value='Point'>Point</option><option value='Moment'>Moment</option></select></td>";
+      cell3.innerHTML = "<td><select name='loadtype' id='loadtype" + i + "' ><option selected>Choose</option><option value='Point'>Point</option><option value='Moment'>Moment</option></select></td>";
       var cell4 = row.insertCell();
       cell4.innerHTML = "<td><select name='loaddirec' id='loaddirec" + i + "'><option value=''>Choose</option></select></td>";
       var cell5 = row.insertCell();
