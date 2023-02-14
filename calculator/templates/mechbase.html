@@ -19,12 +19,14 @@
       <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">DesignYourMachine</a>
+          <!--<img src="https://drive.google.com/uc?id=1XezOxRZpe-DrNFmhfM_fRgjGeBPXyWqW" class="card-img-top img-fluid" style="width: 199px;
+          height: 26px;" alt="images of black hole">-->
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
               <a class="nav-link" href="{{ url_for('index')}}">Home<span class="sr-only"></span></a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="#">About<span class="sr-only"></span></a>
+              <a class="nav-link" href="{{ url_for('about_us')}}">About<span class="sr-only"></span></a>
             </li>
           </ul>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
