@@ -63,12 +63,12 @@
   <div class="mb-3 mt-5">
     <h5>Welcome to the platform, Learn and Design your Machine!</h5>
   </div>
-  <div class="pb-4 p-3 mb-2 bg-body-secondary">
-    <div class="row row-cols-1 row-cols-md-2 g-4">
+  <div class="p-3 mb-2 bg-body-secondary">
+    <div class="row">
       <div class="col-sm-6">
         <div class="card h-50 mb-3">
           <div class="card-body">
-            <h5 class="card-title">Select your Application specific Rolling Contact Bearing!</h5>
+            <h5 class="card-title">Select your Rolling Contact Bearing specific to your application</h5>
             <p class="card-text">Forget about the iterative processes that consumes much of the time while selecting a bearing.
               Just tell us the initial requirements and we will do the rest.
             </p>
@@ -98,11 +98,24 @@
         </div>
         <div class="card h-50 mb-3">
           <div class="card-body">
-            <h5 class="card-title">Design a Key for Power Transmission Application!</h5>
+            <h5 class="card-title">Design a Key for Power Transmission Application</h5>
             <p class="card-text">Design a Key that helps transmit the Power between Shafts and 
               other Rotary components under certain angular speed and Bore Diameter. Set the Parameters and we will provide you with required dimensions.
             </p>
             <a class="btn btn-dark" href="{{ url_for('keyd_cal')}}" role="button">Design your Key here!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col mt-2 sm-6">
+        <div class="card h-100 mb-3">
+          <div class="card-body">
+            <h5 class="card-title">Calculate Reactions on Simply Supported Beam!</h5>
+            <p class="card-text">Define a Simply Supported beam under Point or Moment loads and 
+              calculate the support reaction forces in just a click.
+            </p>
+            <a class="btn btn-dark" href="{{ url_for('beamd_cal')}}" role="button">Calculate here!</a>
           </div>
         </div>
       </div>
@@ -160,6 +173,36 @@
           </div>
         </div>
       </div>
+      <!--<div class="col">
+        <div class="card h-100">
+          <img src="#" class="card-img-top img-fluid" alt="img">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Inquisitive info...</p>
+            <a href="#" class="btn btn-dark">read more</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100">
+          <img src="#" class="card-img-top img-fluid" alt="img">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Inquisitive info...</p>
+            <a href="#" class="btn btn-dark">read more</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100">
+          <img src="#" class="card-img-top img-fluid" alt="img">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Inquisitive info...</p>
+            <a href="#" class="btn btn-dark">read more</a>
+          </div>
+        </div>
+      </div>-->
     </div>
   </div>
   <div class="text-success">
