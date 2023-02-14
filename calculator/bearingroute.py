@@ -15,6 +15,10 @@ import json
 def index():
 	return render_template('index.html')
 
+@app.route('/about_us', methods=['GET'])
+def about_us():
+	return render_template('about.html')
+
 @app.route('/bearing cal', methods=['GET'])
 def bear_cal():
 	return render_template('bearing_cal.html')
@@ -26,12 +30,10 @@ def result():
 	VFC = float(request.form["vfc"])
 	HFC = float(request.form["hfc"])
 	AFC = float(request.form["afc"])
-	
 	if request.form["rfact"] == "Inner Race":
 		Rotation_fact = 1
 	else:
 		Rotation_fact = 1.2
-
 	hr_eachdy = float(request.form["hrperday"])
 	yr = float(request.form["exp_years"])
 	output = bearing_selector(bore_dia,RPM,VFC,HFC,AFC,Rotation_fact,yr,hr_eachdy)
@@ -62,7 +64,6 @@ def shaft_rec():
 	S = request.form["yield"]
 	F = request.form["fos"]
 	dr = request.form["diaratio"]
-
 	#loadtype
 	if request.form["loadtype"] == "Gradual Load":
 		LT = "G"
@@ -70,26 +71,22 @@ def shaft_rec():
 		LT = "M"
 	else:
 		LT = "H"
-	
 	#theory
 	if request.form["theory"] == "Max Shear Stress Theory":
 		Th = "S"
 	else:
 		Th = "D"
-
 	#designbase
 	if request.form["designbase"] == "Torsion Equivalent":
 		db = "T"
 	else:
 		db = "B"
-
 	outcome = shaft_combined(BM,TM,S,F,LT,Th,db,dr)
 	return render_template('shaftdesign_cal.html',outcome = outcome)
 
 @app.route('/keyd cal', methods=['GET'])
 def keyd_cal():
 	return render_template('keydesign_cal.html')
-
 
 @app.route('/keyd cal', methods=['GET','POST'])
 def key_rec():
@@ -103,7 +100,6 @@ def key_rec():
 		Th = "S"
 	else:
 		Th = "D"
-
 	R = key_d(P,N,S,F,D,Th)
 	return render_template('keydesign_cal.html',R = R)
 
@@ -115,15 +111,9 @@ def beamd_cal():
 def beam_data():
 	if request.method == 'POST':
 		Data = request.get_json()
-		#print("Data: ", Data)
-
 		bl = float(Data['form1']['beamlength'])
-		#print("Beam length: ",BL)
 		ns = float(Data['form1']['supportnum'])
-		#print("Support number: ",Snum)
-		nl = float(Data['form1']['loadnum'])
-		#print("Load number: ",Lnum)
-			
+		nl = float(Data['form1']['loadnum'])	
 		supportloc = []
 		supporttype = []
 		supportdirec = []
@@ -133,12 +123,10 @@ def beam_data():
 		loadvalue = []
 		suppdata = Data['form2']
 		loaddata = Data['form3']
-
 		for S in range(len(suppdata)-1):
 			supportloc.append(float(suppdata[S+1]['col2']))
 			supporttype.append(suppdata[S+1]['col3'])
 			supportdirec.append(suppdata[S+1]['col4'])
-			
 		for L in range(len(loaddata)-1):
 			loadloc.append(float(loaddata[L+1]['col2']))
 			loadtype.append(loaddata[L+1]['col3'])
@@ -146,12 +134,8 @@ def beam_data():
 			loadvalue.append(float(loaddata[L+1]['col5']))
 
 		supportrxn = beamd(bl,ns,nl,supportloc,supporttype,supportdirec,loadloc,loadtype,loaddirec,loadvalue)
-
-		#print("supportrxn: ",supportrxn)
 		list1 = ['R1', 'R2']
 		result = dict(zip(list1,supportrxn))
-		print(result)
-		#d = json.dumps(result, indent=2)
 		response = json.dumps(result, indent=2)
 		print("response data type: ",type(response))
 		print(response)
