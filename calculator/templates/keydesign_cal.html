@@ -3,10 +3,16 @@
   Key Design
 {% endblock %}
 {% block content %}
+<head>  
+  <script
+  src="https://code.jquery.com/jquery-3.6.3.js"
+  integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+  crossorigin="anonymous"></script>
 
-<div class="mb-3 mt-5">
-  <h4>Input parameters as per your application</h4>
-</div>
+  <div class="mb-3 mt-5">
+    <h4>Input parameters as per your application</h4>
+  </div>
+</head>
   
 <form method="POST" action="{{ url_for('keyd_cal') }}">
   <div class="mb-3 row">
@@ -54,26 +60,71 @@
       </div>
     </div>
   </div>
-  <div>
-    <button type="submit" value='Submit' class="btn btn-outline-dark">Submit</button>
-  </div>
 </form>
-<br><br>
+
 <h4>Key's Recommanded Dimension</h4>
-<table class="table table-hover table-dark">
+<table id="dataTable" class="table table-hover table-dark mb-3">
   <thead>
     <tr>
-      <!-- Your Columns HERE -->
       <th>Length (in mm)</th>
       <th>Breadth (in mm)</th>
       <th>Height (in mm)</th>
     </tr>
-    <tr>
-      {% for item in R %}
-        <th>{{R[loop.index0]}}</th>
-      {% endfor %}
-    </tr>
   </thead>
+  <tbody></tbody>
 </table>
 
+<div class="row">
+  <div class="col-sm-1">
+    <button id ='submit' type="submit" class="btn btn-outline-dark">CALCULATE</button>
+  </div>
+  <div class="col sm-1">
+    <button id ='reset' type="reset" class="btn btn-outline-dark">RESET</button>
+  </div>
+</div>
+
+<script>
+  $("#submit").on('click',function(){
+
+    var data = {
+      sdia: $("#sdia").val(),
+      fos: $("#fos").val(),
+      theory: $("#theory").val(),
+      yield: $("#yield").val(),
+      power: $("#power").val(),
+      nspeed: $("#nspeed").val()
+    };
+
+    fetch('/keyd_cal')
+      .then(response => response.html)
+
+    fetch('/key_data', {
+      method: 'POST',
+      cache: "no-cache",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Data received successfully: ', data);
+      let tbody = document.querySelector("#dataTable tbody");
+      // Loop through the data and add rows to the table
+      let row = document.createElement("tr");
+      for (let key in data) {
+        let k = document.createElement("td");
+        k.innerHTML = data[key];
+        row.appendChild(k);
+      }
+      tbody.appendChild(row);
+    })
+    .catch(error => console.error("error in sending data to server",error));      
+  })
+    
+  $("#reset").on('click',function(){
+    location.reload();
+  })
+
+</script>
 {% endblock %}
