@@ -60,4 +60,4 @@ def my_bearing(c,b):
 
         m = Cd.index(min(Cd))
 
-    return [Bearing_desigination[m], round(Bore[m],2), round(OD[m],2), round(Width[m],2), round(Cd[m],2), round(Co[m],2), round(Ref_Speed[m],2), round(Lim_Speed[m],2)]
+    return [Bearing_desigination[m], Bore[m], OD[m], Width[m], Cd[m], Co[m], Ref_Speed[m], Lim_Speed[m]]
