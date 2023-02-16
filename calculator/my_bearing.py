@@ -1,7 +1,7 @@
 def my_bearing(c,b):
     import math
     import xlrd                                   # run pip install xlrd on cmd, Reading an excel file using Python
-    loc = ("E:\Py4e\SKFbearingcatalogue.xls")     # Give the location of the file
+    loc = ("calculator/SKFbearingcatalogue.xls")     # Give the location of the file
 
 # To open Workbook
     wb = xlrd.open_workbook(loc)
