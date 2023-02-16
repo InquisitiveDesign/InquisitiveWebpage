@@ -27,13 +27,13 @@ def bearing_cal():
 def bearing_result():
 	if request.method == 'POST':
 		Data = request.get_json()
-		bore_dia = float(Data["shaftdia"])
-		RPM = float(Data["ang_velo"])
-		VFC = float(Data["vfc"])
-		HFC = float(Data["hfc"])
-		AFC = float(Data["afc"])
-		hr_eachdy = float(Data["hrperday"])
-		yr = float(Data["exp_years"])
+		bore_dia = Data["shaftdia"]
+		RPM = Data["ang_velo"]
+		VFC = Data["vfc"]
+		HFC = Data["hfc"]
+		AFC = Data["afc"]
+		hr_eachdy = Data["hrperday"]
+		yr = Data["exp_years"]
 		
 		if Data["rfact"] == "Inner Race":
 			Rotation_fact = 1
