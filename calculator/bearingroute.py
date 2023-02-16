@@ -34,7 +34,6 @@ def bearing_result():
 		AFC = Data["afc"]
 		hr_eachdy = Data["hrperday"]
 		yr = Data["exp_years"]
-		
 		if Data["rfact"] == "Inner Race":
 			Rotation_fact = 1
 		else:
