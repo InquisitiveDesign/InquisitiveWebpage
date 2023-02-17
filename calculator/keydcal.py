@@ -1,4 +1,4 @@
-def key_d(P,N,S,F,D,Th):
+def key_d(P,N,S,F,D,Th,Kt):
     import math
     power_in = float(P)
     Nspeed = float(N)
@@ -6,6 +6,7 @@ def key_d(P,N,S,F,D,Th):
     fos = float(F)
     shaftDia = float(D)
     design_theory = Th
+    key_type = Kt
 
     com_st = yi_st                 #considering compressive yield equal to tensile yield
     max_percs = float(com_st/fos)
@@ -23,7 +24,10 @@ def key_d(P,N,S,F,D,Th):
     omega = (2*(math.pi)*Nspeed/60)   #angular speed in rad/sec
     Mt = (power_in*(10**6)/(omega))   #Torque to be transmitted by the shaft to hub via key in N-mm
     B = round(float(shaftDia/4),2)          #Width and height (in mm) as per the standard industrial practice i.e 1/4th of shaft dia for square key
-    H = round(float(shaftDia/4),2)
+    if key_type == "Sq":
+        H = round(float(shaftDia/4),2)
+    elif key_type == "Fl":
+        H = round(float(B*(2/3)),2)
     keylen_ssbased = float(2*Mt/(max_perss*shaftDia*B))
     keylen_csbased = float(4*Mt/(max_percs*shaftDia*H))
     if keylen_ssbased >= keylen_csbased:
