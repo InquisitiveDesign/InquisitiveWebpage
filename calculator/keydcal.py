@@ -24,8 +24,8 @@ def key_d(P,N,S,F,D,Th):
     Mt = (power_in*(10**6)/(omega))   #Torque to be transmitted by the shaft to hub via key in N-mm
     B = round(float(shaftDia/4),2)          #Width and height (in mm) as per the standard industrial practice i.e 1/4th of shaft dia for square key
     H = round(float(shaftDia/4),2)
-    keylen_ssbased = float(2*Mt/(max_perss*B*H))
-    keylen_csbased = float(4*Mt/(max_percs*B*H))
+    keylen_ssbased = float(2*Mt/(max_perss*shaftDia*B))
+    keylen_csbased = float(4*Mt/(max_percs*shaftDia*H))
     if keylen_ssbased >= keylen_csbased:
         L = round(keylen_ssbased,2)
 
