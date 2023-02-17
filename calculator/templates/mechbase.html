@@ -43,33 +43,13 @@
                   <li><a class="dropdown-item" href="{{ url_for('shaftd_cal')}}">Shaft Design (strength based)</a></li>
                   <li><a class="dropdown-item" href="{{ url_for('shaftrigid_cal')}}">Shaft Design (rigidity based)</a></li>
                   <li><a class="dropdown-item" href="{{ url_for('keyd_cal')}}">Key Design</a></li>
-                  <li><a class="dropdown-item" href="{{ url_for('beamd_cal')}}">Simply Supported Beam Design</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('beamd_cal')}}">Beam Design</a></li>
                 </ul>
               </li>
             </ul>
           </div>
         </div>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <!--<ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="{{ url_for('index')}}">Home<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('bearing_cal')}}">Bearing Calculator</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('shaftd_cal')}}">Shaft Design Calculator (strength based)</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('shaftrigid_cal')}}">Shaft Design Calculator (rigidity based)</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('keyd_cal')}}">Key Design Calculator</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('beamd_cal')}}">Beam Design Calculator</a>
-            </li>
-          </ul>-->
+        <!--<div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link" href="#">Login</a>
@@ -78,7 +58,7 @@
               <a class="nav-link" href="#">Register</a>
             </li>
           </ul>
-        </div>
+        </div>-->
       </nav>
       <!-- Future Content here -->
       {% block content %}
