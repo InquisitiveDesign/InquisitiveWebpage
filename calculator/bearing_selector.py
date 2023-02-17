@@ -107,7 +107,7 @@ def bearing_selector(bore_dia,RPM,VFC,HFC,AFC,Rotation_fact,yr,hr_eachdy):
 
     #again equivalent dynamic load (in kN)
     W = (X*R*Fr)+(Y*Fa)
-    cnew = W*(Lrev/(10**6))**(n)
+    cnew = round((W*(Lrev/(10**6))**(n)),2)
     my_bearing(cnew,b)
 
     return [my_bearing(cnew,b)[0], my_bearing(cnew,b)[1], my_bearing(cnew,b)[2], my_bearing(cnew,b)[3], my_bearing(cnew,b)[4], my_bearing(cnew,b)[5], my_bearing(cnew,b)[6], my_bearing(cnew,b)[7], my_bearing(cnew,b)[8]]
