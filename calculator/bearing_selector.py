@@ -110,5 +110,5 @@ def bearing_selector(bore_dia,RPM,VFC,HFC,AFC,Rotation_fact,yr,hr_eachdy):
     cnew = W*(Lrev/(10**6))**(n)
     my_bearing(cnew,b)
 
-    return [my_bearing(cnew,b)[0], my_bearing(cnew,b)[1], my_bearing(cnew,b)[2], my_bearing(cnew,b)[3], my_bearing(cnew,b)[4], my_bearing(cnew,b)[5], my_bearing(cnew,b)[6], my_bearing(cnew,b)[7]]
+    return [my_bearing(cnew,b)[0], my_bearing(cnew,b)[1], my_bearing(cnew,b)[2], my_bearing(cnew,b)[3], my_bearing(cnew,b)[4], my_bearing(cnew,b)[5], my_bearing(cnew,b)[6], my_bearing(cnew,b)[7], my_bearing(cnew,b)[8]]
     
