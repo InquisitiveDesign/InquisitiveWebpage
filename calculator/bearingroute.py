@@ -130,7 +130,6 @@ def key_data():
 		else:
 			Kt = "Fl"
 			
-		print(Th)
 		R = key_d(P,N,S,F,D,Th,Kt)
 		list1 = ['L', 'B', 'H']
 		result = dict(zip(list1,R))
