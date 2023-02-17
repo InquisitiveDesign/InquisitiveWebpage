@@ -10,7 +10,7 @@
   crossorigin="anonymous"></script>
 
   <div class="mb-3 mt-5">
-    <h4>Enter Application specific parameters</h4>
+    <h4>Input parameters as per your application</h4>
   </div>
 </head>
   
@@ -33,8 +33,9 @@
         <label for="theory" class="col-sm-6 col-form-label">Failure Theory:</label>
         <div class="col-sm-4">
           <select id='theory' name='theory' class="form-control form-control-sm">
-            <option value="maxshearstresstheory">Max Shear Stress Theory</option>
-            <option value="distortionenergytheory">Distortion Energy Theory</option>
+            <option selected>Choose</option>
+            <option value="Max Shear Stress Theory">Max Shear Stress Theory</option>
+            <option value="Distortion Energy Theory">Distortion Energy Theory</option>
           </select>
         </div>
       </div>
@@ -42,8 +43,9 @@
         <label for="keytype" class="col-sm-6 col-form-label">Key Type:</label>
         <div class="col-sm-4">
           <select id='keytype' name='keytype' class="form-control form-control-sm">
-            <option value="squarekey">Square key</option>
-            <option value="flatkey">Flat Key (rectangular)</option>
+            <option selected>Choose</option>
+            <option value="Square key">Square key</option>
+            <option value="Flat Key (rectangular)">Flat Key (rectangular)</option>
           </select>
         </div>
       </div>
@@ -119,6 +121,7 @@
     .then(response => response.json())
     .then(data => {
       console.log('Data received successfully: ', data);
+      // Manipulate or display data as required
       let tbody = document.querySelector("#dataTable tbody");
       // Loop through the data and add rows to the table
       let row = document.createElement("tr");
