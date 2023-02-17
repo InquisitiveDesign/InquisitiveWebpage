@@ -10,7 +10,7 @@
   crossorigin="anonymous"></script>
 
   <div class="mb-3 mt-5">
-    <h4>Input parameters as per your application</h4>
+    <h4>Enter Application specific parameters</h4>
   </div>
 </head>
   
@@ -35,6 +35,15 @@
           <select id='theory' name='theory' class="form-control form-control-sm">
             <option value="maxshearstresstheory">Max Shear Stress Theory</option>
             <option value="distortionenergytheory">Distortion Energy Theory</option>
+          </select>
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="keytype" class="col-sm-6 col-form-label">Key Type:</label>
+        <div class="col-sm-4">
+          <select id='keytype' name='keytype' class="form-control form-control-sm">
+            <option value="squarekey">Square key</option>
+            <option value="flatkey">Flat Key (rectangular)</option>
           </select>
         </div>
       </div>
@@ -90,6 +99,7 @@
       sdia: $("#sdia").val(),
       fos: $("#fos").val(),
       theory: $("#theory").val(),
+      keytype: $("#keytype").val(),
       yield: $("#yield").val(),
       power: $("#power").val(),
       nspeed: $("#nspeed").val()
