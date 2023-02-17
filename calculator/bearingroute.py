@@ -129,7 +129,7 @@ def key_data():
 		else:
 			Kt = "Fl"
 
-		R = key_d(P,N,S,F,D,Th,Fl)
+		R = key_d(P,N,S,F,D,Th,Fl,Kt)
 		list1 = ['L', 'B', 'H']
 		result = dict(zip(list1,R))
 		response = json.dumps(result, indent=3)
