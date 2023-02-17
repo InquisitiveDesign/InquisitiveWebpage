@@ -34,6 +34,7 @@ def bearing_result():
 		AFC = Data["afc"]
 		hr_eachdy = Data["hrperday"]
 		yr = Data["exp_years"]
+		
 		if Data["rfact"] == "Inner Race":
 			Rotation_fact = 1
 		else:
@@ -123,13 +124,14 @@ def key_data():
 			Th = "S"
 		else:
 			Th = "D"
-
-                if Data["keytype"] == "Square key":
+		
+		if Data["keytype"] == "Square key":
 			Kt = "Sq"
 		else:
 			Kt = "Fl"
-
-		R = key_d(P,N,S,F,D,Th,Fl,Kt)
+			
+		print(Th)
+		R = key_d(P,N,S,F,D,Th,Kt)
 		list1 = ['L', 'B', 'H']
 		result = dict(zip(list1,R))
 		response = json.dumps(result, indent=3)
@@ -146,7 +148,7 @@ def beam_data():
 		bl = float(Data['form1']['beamlength'])
 		ns = float(Data['form1']['supportnum'])
 		nl = float(Data['form1']['loadnum'])
-		
+			
 		supportloc = []
 		supporttype = []
 		supportdirec = []
