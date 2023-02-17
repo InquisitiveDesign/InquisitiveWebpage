@@ -124,7 +124,12 @@ def key_data():
 		else:
 			Th = "D"
 
-		R = key_d(P,N,S,F,D,Th)
+                if Data["keytype"] == "Square key":
+			Kt = "Sq"
+		else:
+			Kt = "Fl"
+
+		R = key_d(P,N,S,F,D,Th,Fl)
 		list1 = ['L', 'B', 'H']
 		result = dict(zip(list1,R))
 		response = json.dumps(result, indent=3)
