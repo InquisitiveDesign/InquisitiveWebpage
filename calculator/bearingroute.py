@@ -41,9 +41,9 @@ def bearing_result():
 			Rotation_fact = 1.2
 
 		output = bearing_selector(bore_dia,RPM,VFC,HFC,AFC,Rotation_fact,yr,hr_eachdy)
-		list1 = ['Bearing_desigination','Bore','OD','Width','Cd','Co','Ref_Speed','Lim_Speed']
+		list1 = ['Bearing_desigination','Bore','OD','Width','Cd','Co','Ref_Speed','Lim_Speed','Required_Cd']
 		result = dict(zip(list1,output))
-		response = json.dumps(result, indent=8)
+		response = json.dumps(result, indent=9)
 		return response
 
 @app.route('/shaftrigid_cal', methods=['GET','POST'])
@@ -133,7 +133,9 @@ def key_data():
 		R = key_d(P,N,S,F,D,Th,Kt)
 		list1 = ['L', 'B', 'H']
 		result = dict(zip(list1,R))
+		#print(result)
 		response = json.dumps(result, indent=3)
+		#print('key response: ',response)
 		return response
 
 @app.route('/beamd_cal', methods=['GET','POST'])
@@ -147,7 +149,6 @@ def beam_data():
 		bl = float(Data['form1']['beamlength'])
 		ns = float(Data['form1']['supportnum'])
 		nl = float(Data['form1']['loadnum'])
-			
 		supportloc = []
 		supporttype = []
 		supportdirec = []
@@ -170,7 +171,6 @@ def beam_data():
 			loadvalue.append(float(loaddata[L+1]['col5']))
 
 		supportrxn = beamd(bl,ns,nl,supportloc,supporttype,supportdirec,loadloc,loadtype,loaddirec,loadvalue)
-
 		list1 = ['R1', 'R2']
 		result = dict(zip(list1,supportrxn))
 		response = json.dumps(result, indent=2)
