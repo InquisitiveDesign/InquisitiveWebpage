@@ -10,7 +10,7 @@
   crossorigin="anonymous"></script>
 
   <div class="mb-3 mt-5">
-    <h4>Enter Application Specific Parameters</h4>
+    <h4>Input parameters as per your application</h4>
   </div>
 </head>
 
@@ -53,8 +53,8 @@
         <label for="rfact" class="col-sm-6 col-form-label">Rotating Race:</label>
         <div class="col-sm-3">
           <select id='rfact' name='rfact' class="form-control form-control-sm">
-            <option value="innerrace">Inner Race</option>
-            <option value="outerrace">Outer Race</option>
+            <option value="Inner Race">Inner Race</option>
+            <option value="Outer Race">Outer Race</option>
           </select>
         </div>
       </div>
@@ -73,7 +73,12 @@
     </div>
   </div>
 </form>
-<br><br>
+
+<table id="dynamicloadcapacity" class="table table-hover table-secondary border border-dark w-25 p-3 table-bordered mb-3">
+  <tbody></tbody>
+</table>
+
+<br>
 <h4>Ball Bearing Recommanded</h4>
 <table id="dataTable" class="table table-hover table-dark mb-3">
   <thead>
@@ -130,14 +135,31 @@
       console.log('Data received successfully: ', data);
       // Manipulate or display data as required
       let tbody = document.querySelector("#dataTable tbody");
+      let tbodycd = document.querySelector("#dynamicloadcapacity tbody");
       // Loop through the data and add rows to the table
       let row = document.createElement("tr");
+      let rowcd = document.createElement("tr");
+
+      let cdreq = document.createElement("td");
+      cdreq.innerHTML = "Required Dynamic Load Capacity (Cd)";
+      rowcd.appendChild(cdreq);
+
+      let i=0;
       for (let key in data) {
-        let beardata = document.createElement("td");
-        beardata.innerHTML = data[key];
-        row.appendChild(beardata);
+        i = i+1;
+        if (i<=8) {
+          let beardata = document.createElement("td");
+          beardata.innerHTML = data[key];
+          row.appendChild(beardata);
+        }
+        else {
+          let cdreq = document.createElement("td");
+          cdreq.innerHTML = data[key];
+          rowcd.appendChild(cdreq);
+        }
       }
       tbody.appendChild(row);
+      tbodycd.appendChild(rowcd);
     })
     .catch(error => console.error("error in sending data to server",error));      
   })
