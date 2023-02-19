@@ -1,7 +1,8 @@
-def bearing_selector(bore_dia,RPM,VFC,HFC,AFC,Rotation_fact,yr,hr_eachdy):
+def bearing_selector(bore_dia,RPM,VFC,HFC,AFC,Rotation_fact,yr,hr_eachdy,btype):
     
     import math
     from calculator.my_bearing import my_bearing
+    
 
     Fv = float(VFC)
     Fh = float(HFC)
@@ -9,7 +10,7 @@ def bearing_selector(bore_dia,RPM,VFC,HFC,AFC,Rotation_fact,yr,hr_eachdy):
 
     #total radial load
     Fr = math.sqrt((Fv)**2+(Fh)**2)
-    
+
     #Determining the radial load factor by trial and error
     fafrratio = float(Fa/Fr)
 
@@ -26,10 +27,11 @@ def bearing_selector(bore_dia,RPM,VFC,HFC,AFC,Rotation_fact,yr,hr_eachdy):
 
     #Equivalent dynamic load (in kN)
     W = (X*R*Fr)+(Y*Fa)
+    #print("W: ",W)
 
     #load life relationship
-    # Years of life (Y)
-    # Operating time each day(OT) in hours
+    #Years of life (Y)
+    #Operating time each day(OT) in hours
     #Life of a bearing Lhr(in hours)
 
     YR = float(yr)
@@ -38,21 +40,25 @@ def bearing_selector(bore_dia,RPM,VFC,HFC,AFC,Rotation_fact,yr,hr_eachdy):
 
     #Life of a bearing Lrev(in million revolution)
     Lhr = (YR)*(OT)*365
-
     Lrev = Lhr*60*N
 
     #Basic dynamic radial load, C (kN)
     #Bearing index "n" for ball bearing
-    n = float(1/3)
+    if btype == "B":
+        n = float(1/3)
+    else:
+        n = 0.3
 
     #Dynamic load carrying capacity
     c = W*(Lrev/(10**6))**(n)
-    
+
+    #b = float(input("Enter the shaft's dia (in mm): "))
     b = float(bore_dia)
 
-    my_bearing(c,b)
-    faCoratio = float(Fa/my_bearing(c,b)[5])
-    
+    my_bearing(c,b,n)
+
+    faCoratio = float(Fa/my_bearing(c,b,n)[5])
+
     func_floor_value = math.floor(faCoratio)
     def final_comparision(mylist):
         segregation = {}
@@ -68,6 +74,7 @@ def bearing_selector(bore_dia,RPM,VFC,HFC,AFC,Rotation_fact,yr,hr_eachdy):
             if segregation[key] == dictvalue:
                 return key
 
+    #print(final_comparision(Fa_Co))
     index = Fa_Co.index(final_comparision(Fa_Co))
     e = e_list[index]       #approx value
     Fa_Co = [0.025,0.04,0.07,0.13,0.25,0.50]
@@ -88,7 +95,6 @@ def bearing_selector(bore_dia,RPM,VFC,HFC,AFC,Rotation_fact,yr,hr_eachdy):
 
         if greater == []:
             greater.append(max(Fa_Co))
-     
         faComin = max(smaller)
         faComax = min(greater)
         indxmin = Fa_Co.index(faComin)
@@ -100,7 +106,7 @@ def bearing_selector(bore_dia,RPM,VFC,HFC,AFC,Rotation_fact,yr,hr_eachdy):
             Y = Ymin+((Ymax-Ymin)/(faComax-faComin))*(faCoratio-faComin)
         except:
             Y = Ymin or Ymax
-    
+
     elif fafrratio <= e:
         X = X_factor[0]
         Y = Y_factor[-1]
@@ -108,7 +114,7 @@ def bearing_selector(bore_dia,RPM,VFC,HFC,AFC,Rotation_fact,yr,hr_eachdy):
     #again equivalent dynamic load (in kN)
     W = (X*R*Fr)+(Y*Fa)
     cnew = round((W*(Lrev/(10**6))**(n)),2)
-    my_bearing(cnew,b)
+    my_bearing(cnew,b,n)
 
-    return [my_bearing(cnew,b)[0], my_bearing(cnew,b)[1], my_bearing(cnew,b)[2], my_bearing(cnew,b)[3], my_bearing(cnew,b)[4], my_bearing(cnew,b)[5], my_bearing(cnew,b)[6], my_bearing(cnew,b)[7], my_bearing(cnew,b)[8]]
-    
+    return [my_bearing(cnew,b,n)[0], my_bearing(cnew,b,n)[1], my_bearing(cnew,b,n)[2], my_bearing(cnew,b,n)[3], my_bearing(cnew,b,n)[4], my_bearing(cnew,b,n)[5], my_bearing(cnew,b,n)[6], my_bearing(cnew,b,n)[7], my_bearing(cnew,b,n)[8], my_bearing(cnew,b,n)[9]]
+   
