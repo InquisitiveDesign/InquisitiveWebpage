@@ -1,19 +1,16 @@
-def my_bearing(c,b):
+def my_bearing(c,b,n):
     import math
-    import xlrd                                   # run pip install xlrd on cmd, Reading an excel file using Python
-    loc = ("calculator/SKFbearingcatalogue.xls")     # Give the location of the file
+    import xlrd         # run pip install xlrd on cmd, Reading an excel file using Python
+    # Give the location of the file
+    if n == float(1/3):
+        loc = ("E:\Py4e\SKFballbearingcatalogue.xls")
+    else:
+        loc = ("E:\Py4e\SKF_single-row-cyl-rollerbearingcatalogue.xls")
 
 # To open Workbook
     wb = xlrd.open_workbook(loc)
     sheet = wb.sheet_by_index(0)
 
-#For row 0 and column 0
-#print(sheet.cell_value(0, 0))
-#Extracting number of rows
-#print(sheet.nrows)
-#Extracting number of columns
-#print(sheet.ncols)
-#n = range(sheet.nrows)
     i = 0
     Bearing_desigination = []
     Bore = []
@@ -44,7 +41,7 @@ def my_bearing(c,b):
 
     elif Cd == []:
         i = 0
-        print("entered bore dia not available")
+        #print("entered bore dia not available")
         while i < (int(sheet.nrows)-1):
             i = i + 1
             if float(sheet.cell_value(i,1)) != b and float(sheet.cell_value(i,4)) >= c:
@@ -60,4 +57,8 @@ def my_bearing(c,b):
 
         m = Cd.index(min(Cd))
 
-    return [Bearing_desigination[m], Bore[m], OD[m], Width[m], Cd[m], Co[m], Ref_Speed[m], Lim_Speed[m], c]
+    if n == float(1/3):
+        return [Bearing_desigination[m], Bore[m], OD[m], Width[m], Cd[m], Co[m], Ref_Speed[m], Lim_Speed[m], c, "Ball Bearing"]
+    else:
+        return [Bearing_desigination[m], Bore[m], OD[m], Width[m], Cd[m], Co[m], Ref_Speed[m], Lim_Speed[m], c, "Roller Bearing"]
+    
