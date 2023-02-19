@@ -1,6 +1,6 @@
 {% extends 'mechbase.html' %}
 {% block title %}
-  Ball Bearing Selector
+  Bearing Selector
 {% endblock %}
 {% block content %}
 <head>  
@@ -10,7 +10,7 @@
   crossorigin="anonymous"></script>
 
   <div class="mb-3 mt-5">
-    <h4>Enter Application Specific Parameters</h4>
+    <h4>Input parameters as per your application</h4>
   </div>
 </head>
 
@@ -41,12 +41,21 @@
           <input type='number' step="0.01" class="form-control form-control-sm" id='hfc' name='hfc' placeholder="in kN">
         </div>
       </div>
-    </div>
-    <div class="col-sm-6">
       <div class="mb-3 row">
         <label for="afc" class="col-sm-6 col-form-label">Axial Load:</label>
         <div class="col-sm-3">
           <input type='number' step="0.01" class="form-control form-control-sm" id='afc' name='afc' placeholder="in kN">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="mb-3 row">
+        <label for="beartype" class="col-sm-6 col-form-label">Bearing Type:</label>
+        <div class="col-sm-4">
+          <select id='beartype' name='beartype' class="form-control form-control-sm">
+            <option value="Deep Groove Ball Bearing">Deep Groove Ball Bearing</option>
+            <option value="Roller Bearing">Cylindrical Roller Bearing</option>
+          </select>
         </div>
       </div>
       <div class="mb-3 row">
@@ -78,8 +87,7 @@
   <tbody></tbody>
 </table>
 
-<br>
-<h4>Ball Bearing Recommanded</h4>
+<h4>Bearing Recommanded</h4>
 <table id="dataTable" class="table table-hover table-dark mb-3">
   <thead>
     <tr>
@@ -87,10 +95,11 @@
       <th>Bore (in mm)</th>
       <th>OD (in mm)</th>
       <th>Width (in mm)</th>
-      <th>Cd</th>
-      <th>Co</th>
+      <th>Cd (in kN)</th>
+      <th>Co (in kN)</th>
       <th>Reference Speed</th>
       <th>Limit Speed</th>
+      <th>Bearing Type</th>
     </tr>
   </thead>
   <tbody></tbody>
@@ -105,6 +114,27 @@
   </div>
 </div>
 
+<div class="card mt-4" style="width: auto;">
+  <div class="card-header">
+    <h5>Note:</h5>
+  </div>
+  <div class="card-body">
+    <p class="card-text">
+      <ol class="list-group-numbered">
+        <li class="list-group-item">Recommanded Bearing Desigination is as per SKF Bearing data.</li>
+        <li class="list-group-item">Recommanded Bearing is either Single Row Deep Groove Ball Bearing or Single Row Cylindrical Roller Bearing.</li>
+        <li class="list-group-item">Dynamic Load Capacity required for the application is provided for reference.</li>
+        <li class="list-group-item">The user can use the provided Dynamic Load Capacity as reference, in case any other bearing type is required under Ball & Roller Bearing category like:
+          <ul>
+            <li>Angular Contact Ball Bearings, Self-Aligning Ball Bearing, Insert Bearings (Y-Bearings), Thrust Ball Bearings, Thin Section Bearings</li>
+            <li>Needle Roller Bearings, Tapered Roller Bearings, Spherical Roller Bearings and some more specific types.</li>
+          </ul>
+        </li>
+      </ol>
+    </p>
+  </div>
+</div>
+
 <script>
   $("#submit").on('click',function(){
 
@@ -114,6 +144,7 @@
       vfc: $("#vfc").val(),
       hfc: $("#hfc").val(),
       afc: $("#afc").val(),
+      beartype: $("#beartype").val(),
       rfact: $("#rfact").val(),
       hrperday: $("#hrperday").val(),
       exp_years: $("#exp_years").val()
@@ -147,15 +178,15 @@
       let i=0;
       for (let key in data) {
         i = i+1;
-        if (i<=8) {
-          let beardata = document.createElement("td");
-          beardata.innerHTML = data[key];
-          row.appendChild(beardata);
-        }
-        else {
+        if (i==9) {
           let cdreq = document.createElement("td");
           cdreq.innerHTML = data[key];
           rowcd.appendChild(cdreq);
+        }
+        else {
+          let beardata = document.createElement("td");
+          beardata.innerHTML = data[key];
+          row.appendChild(beardata);
         }
       }
       tbody.appendChild(row);
