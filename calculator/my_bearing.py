@@ -3,9 +3,9 @@ def my_bearing(c,b,n):
     import xlrd         # run pip install xlrd on cmd, Reading an excel file using Python
     # Give the location of the file
     if n == float(1/3):
-        loc = ("E:\Py4e\SKFballbearingcatalogue.xls")
+        loc = ("calculator/SKFballbearingcatalogue.xls")
     else:
-        loc = ("E:\Py4e\SKF_single-row-cyl-rollerbearingcatalogue.xls")
+        loc = ("calculator/SKF_single-row-cyl-rollerbearingcatalogue.xls")
 
 # To open Workbook
     wb = xlrd.open_workbook(loc)
