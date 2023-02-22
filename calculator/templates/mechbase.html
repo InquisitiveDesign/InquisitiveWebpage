@@ -18,15 +18,15 @@
       <!-- Navbar here -->
       <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">DesignYourMachine</a>
+          <a class="navbar-brand" href="#"><h4 style="font-family:verdana;"><b>MechAssist</b></h4></a>
           <!--<img src="https://drive.google.com/uc?id=1XezOxRZpe-DrNFmhfM_fRgjGeBPXyWqW" class="card-img-top img-fluid" style="width: 199px;
           height: 26px;" alt="images of black hole">-->
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="{{ url_for('index')}}">Home<span class="sr-only"></span></a>
+              <a class="nav-link" href="{{ url_for('index')}}" style="font-family:verdana;">Home<span class="sr-only"></span></a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="{{ url_for('about_us')}}">About<span class="sr-only"></span></a>
+              <a class="nav-link" href="{{ url_for('about_us')}}" style="font-family:verdana;">About<span class="sr-only"></span></a>
             </li>
           </ul>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,11 +35,11 @@
           <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
             <ul class="navbar-nav">
               <li class="nav-item dropdown">
-                <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="font-family:verdana;">
                   Design Calculators
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark">
-                  <li><a class="dropdown-item" href="{{ url_for('bearing_cal')}}">Ball Bearing Selector</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('bearing_cal')}}">Bearing Selector</a></li>
                   <li><a class="dropdown-item" href="{{ url_for('shaftd_cal')}}">Shaft Design (Strength based)</a></li>
                   <li><a class="dropdown-item" href="{{ url_for('shaftrigid_cal')}}">Shaft Design (Rigidity based)</a></li>
                   <li><a class="dropdown-item" href="{{ url_for('keyd_cal')}}">Key Design</a></li>
@@ -49,16 +49,6 @@
             </ul>
           </div>
         </div>
-        <!--<div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Register</a>
-            </li>
-          </ul>
-        </div>-->
       </nav>
       <!-- Future Content here -->
       {% block content %}
@@ -78,7 +68,7 @@
               </svg>
             </div>
             <div class="col-md-auto">
-              <h5>designyourmachine@gmail.com</h5>
+              <h5>mechassist.support@gmail.com</h5>
             </div>
           </div>
         </div>
@@ -91,5 +81,4 @@
       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
    </body>
-
 </html>
