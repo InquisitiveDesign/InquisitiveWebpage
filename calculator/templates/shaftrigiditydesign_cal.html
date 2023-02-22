@@ -9,12 +9,12 @@
   integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
   crossorigin="anonymous"></script>
 
-  <div class="mb-3 mt-5">
-    <h4>Enter Application Specific Parameters</h4>
+  <div class="mb-3 mt-4">
+    <h4 style="font-family:verdana;">Enter Application Specific Parameters</h4>
   </div>
 </head>
 
-<form method="POST" action="{{ url_for('shaftrigid_cal') }}">
+<form>
   <div class="mb-3 row">
     <div class="col-sm-6">
       <div class="mb-3 row">
@@ -84,7 +84,7 @@
       diar: $("#diar").val(),
     };
 
-    fetch('/shaftrigid_cal')
+    fetch('/shaftdesign_rigiditybased')
       .then(response => response.html)
 
     fetch('/shaft_rigid', {
