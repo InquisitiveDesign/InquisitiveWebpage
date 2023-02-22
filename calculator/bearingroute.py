@@ -16,8 +16,8 @@ def index():
 def about_us():
 	return render_template('about.html')
 
-@app.route('/bearing_cal', methods=['GET','POST'])
-def bearing_cal():
+@app.route('/bearing_selector', methods=['GET','POST'])
+def bearing_selector():
 	return render_template('bearing_cal.html')
 
 @app.route('/bearing_result', methods=['POST'])
@@ -48,8 +48,8 @@ def bearing_result():
 		response = json.dumps(result, indent=10)
 		return response
 
-@app.route('/shaftrigid_cal', methods=['GET','POST'])
-def shaftrigid_cal():
+@app.route('/shaftdesign_rigiditybased', methods=['GET','POST'])
+def shaftdesign_rigiditybased():
 	return render_template('shaftrigiditydesign_cal.html')
 
 @app.route('/shaft_rigid', methods=['POST'])
@@ -68,8 +68,8 @@ def shaft_rigid():
 		response = json.dumps(result, indent=2)
 		return response
 
-@app.route('/shaftd_cal', methods=['GET','POST'])
-def shaftd_cal():
+@app.route('/shaftdesign_strengthbased', methods=['GET','POST'])
+def shaftdesign_strengthbased():
 	return render_template('shaftdesign_cal.html')
 
 @app.route('/shaft_rec', methods=['POST'])
@@ -108,8 +108,8 @@ def shaft_rec():
 		response = json.dumps(result, indent=2)
 		return response
 	
-@app.route('/keyd_cal', methods=['GET','POST'])
-def keyd_cal():
+@app.route('/keydesign', methods=['GET','POST'])
+def keydesign():
 	return render_template('keydesign_cal.html')
 
 @app.route('/key_data', methods=['POST'])
@@ -138,8 +138,8 @@ def key_data():
 		response = json.dumps(result, indent=3)
 		return response
 
-@app.route('/beamd_cal', methods=['GET','POST'])
-def beamd_cal():
+@app.route('/beamdesign', methods=['GET','POST'])
+def beamdesign():
 	return render_template('beamdesign_cal.html')
 
 @app.route('/beam_data', methods=['POST'])
@@ -177,3 +177,4 @@ def beam_data():
 		result = dict(zip(list1,supportrxn))
 		response = json.dumps(result, indent=2)
 		return response
+	
