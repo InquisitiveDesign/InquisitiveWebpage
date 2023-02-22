@@ -60,8 +60,8 @@
       }
     }
   </script>
-  <div class="mb-3 mt-5">
-    <h5>Welcome to the platform, Learn and Design your Machine!</h5>
+  <div class="mb-3 mt-4">
+    <h5 style="font-family:verdana;">Welcome to our services, get relieved from your daily hustle using these tools wisely!</h5>
   </div>
   <div class="p-3 mb-2 bg-body-secondary">
     <div class="row">
@@ -72,7 +72,7 @@
             <p class="card-text">Forget about the iterative processes that consumes much of the time while selecting a bearing.
               Just tell us the initial requirements and we will do the rest.
             </p>
-            <a class="btn btn-dark" href="{{ url_for('bearing_cal')}}" role="button">Select your Ball Bearing now!</a>
+            <a class="btn btn-dark" href="{{ url_for('bearing_selector')}}" role="button">Select your Bearing now!</a>
           </div>
         </div>
         <div class="card h-50 mb-3">
@@ -82,7 +82,7 @@
               equivalent stresses & load types i.e., gradual or shock loading. 
               Fill in the parameters and we will provide you with required dimensions.
             </p>
-            <a class="btn btn-dark" href="{{ url_for('shaftd_cal')}}" role="button">Design your Shaft here!</a>
+            <a class="btn btn-dark" href="{{ url_for('shaftdesign_strengthbased')}}" role="button">Design your Shaft here!</a>
           </div>
         </div>
       </div>
@@ -93,7 +93,7 @@
             <p class="card-text">Design a Hollow or Solid Line Shaft which works under explicit rigidity requirements. 
               Set the Twisting limit and get the required dimensions.
             </p>
-            <a class="btn btn-dark" href="{{ url_for('shaftrigid_cal')}}" role="button">Define your limits here!</a>
+            <a class="btn btn-dark" href="{{ url_for('shaftdesign_rigiditybased')}}" role="button">Define your limits here!</a>
           </div>
         </div>
         <div class="card h-50 mb-3">
@@ -102,7 +102,7 @@
             <p class="card-text">Design a Key that helps transmit the Power between Shafts and 
               other Rotary components under certain angular speed and Bore Diameter. Set the Parameters and we will provide you with required dimensions.
             </p>
-            <a class="btn btn-dark" href="{{ url_for('keyd_cal')}}" role="button">Design your Key here!</a>
+            <a class="btn btn-dark" href="{{ url_for('keydesign')}}" role="button">Design your Key here!</a>
           </div>
         </div>
       </div>
@@ -115,7 +115,7 @@
             <p class="card-text">Define a Simply Supported beam under Point or Moment loads and 
               calculate the support reaction forces in just a click.
             </p>
-            <a class="btn btn-dark" href="{{ url_for('beamd_cal')}}" role="button">Calculate here!</a>
+            <a class="btn btn-dark" href="{{ url_for('beamdesign')}}" role="button">Calculate here!</a>
           </div>
         </div>
       </div>
