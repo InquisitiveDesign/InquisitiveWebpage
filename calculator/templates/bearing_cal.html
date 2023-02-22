@@ -9,8 +9,8 @@
   integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
   crossorigin="anonymous"></script>
 
-  <div class="mb-3 mt-5">
-    <h4>Input parameters as per your application</h4>
+  <div class="mb-3 mt-4">
+    <h4 style="font-family:verdana;">Enter Application Specific Parameters</h4>
   </div>
 </head>
 
@@ -150,7 +150,7 @@
       exp_years: $("#exp_years").val()
     };
 
-    fetch('/bearing_cal')
+    fetch('/bearing_selector')
       .then(response => response.html)
 
     fetch('/bearing_result', {
